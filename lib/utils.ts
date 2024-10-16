@@ -34,7 +34,15 @@ export function secondsToTimeExtended(seconds: number, dic = es) {
    }`;
 }
 
+export const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+export function isSameDay(d1: Date, d2: Date) {
+   return (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+   );
+}
 
 export function formatPrice(price: number, currency: string | undefined) {
    return new Intl.NumberFormat(undefined, {
@@ -43,14 +51,44 @@ export function formatPrice(price: number, currency: string | undefined) {
    }).format(price);
 }
 
+export function arrayFromNumbers(start: number, end: number) {
+   const aux: number[] = [];
+
+   for (let index = start; index < end; index++) {
+      aux.push(index);
+   }
+
+   return aux;
+}
+
+
+export function createDateAndReturnTime(date: string, hour: number) {
+   const aux = new Date(date);
+
+   aux.setHours(hour);
+
+   return aux.getTime();
+}
+
+export const dayMilliseconds = 86400000;
+export const hourMilliseconds = 3600000;
+
+export function resetDateTime(date: Date) {
+   date.setHours(0);
+   date.setMinutes(0);
+   date.setMilliseconds(0);
+
+   return date;
+}
+
 
 /*
 
 export const baseUrl = 'https://dev.front.agendaahora.com';
 export const paypalInvoiceUrl = 'https://www.sandbox.paypal.com/invoice/p/#';
 
-export const dayMilliseconds = 86400000;
-export const hourMilliseconds = 3600000;
+
+
 
 export function groupBy<T>(collection: T[], key: keyof T) {
    const groupedResult = collection.reduce((previous, current) => {
@@ -77,23 +115,9 @@ export function convertErrorIntoString<T>(error: SafeParseError<T>) {
    return JSON.stringify(deactivation_date);
 }
 
-export function resetDateTime(date: Date) {
-   date.setHours(0);
-   date.setMinutes(0);
-   date.setMilliseconds(0);
 
-   return date;
-}
 
-export const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-export function isSameDay(d1: Date, d2: Date) {
-   return (
-      d1.getFullYear() === d2.getFullYear() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getDate() === d2.getDate()
-   );
-}
 
 export function capitalizeFirstLetter(inputString: string): string {
    if (inputString.length === 0) {
@@ -122,13 +146,7 @@ export function generatePopoverState(
 export const password_regex =
    /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*\W).{8,}$/;
 
-export function createDateAndReturnTime(date: string, hour: number) {
-   const aux = new Date(date);
 
-   aux.setHours(hour);
-
-   return aux.getTime();
-}
 
 export function profilePicFromLetters(
    canvas: HTMLCanvasElement,
@@ -289,15 +307,7 @@ export function convertDaysIntoString(
    }
 }
 
-export function arrayFromNumbers(start: number, end: number) {
-   const aux: number[] = [];
 
-   for (let index = start; index < end; index++) {
-      aux.push(index);
-   }
-
-   return aux;
-}
 
 export async function getFileFromUrl(url: string) {
    const res = await fetch(url);

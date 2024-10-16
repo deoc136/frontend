@@ -91,35 +91,17 @@ export interface PatientWithAppointment extends User {
    last_appointment: Date | null;
 }
 
-export async function getAllPatients(slug: string) {
+export async function getAllPatients() {
    return axios.get<{ user: PatientWithAppointment }[]>(
       '/user/getAllPatients',
       {
-         headers: {
-            slug,
-         },
       },
    );
 }
 
-export async function getAllUsersByRole(slug: string, role: Role) {
+export async function getAllUsersByRole( role: Role) {
    return axios.get<User[]>(`/user/getAllByRole/${role}`, {
-      headers: {
-         slug,
-      },
    });
-}
-
-export async function getAllEmployees(slug: string) {
-   const [
-      { data: receptionists },
-      { data: administrators },
-   ] = await Promise.all([
-      getAllUsersByRole(slug, 'RECEPTIONIST'),
-      getAllUsersByRole(slug, 'ADMINISTRATOR'),
-   ]);
-
-   return [...receptionists, ...administrators];
 }
 
 export async function getUserByCognitoId(cognitoId: string) {

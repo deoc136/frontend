@@ -8,8 +8,9 @@ type SignInParameters = {
 
 export async function signIn({ email, password }: SignInParameters) {
    try {
-      const user = await Auth.signIn(email, password);
+      const user = await Auth.signIn(email, password)
       return user as CognitoUser;
+      console.log("user Activated");
    } catch (error) {
       console.error('error signing in', error);
       throw error;

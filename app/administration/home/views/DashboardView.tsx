@@ -1,7 +1,7 @@
 'use client';
 
-import DateRangePicker from '@/components/inputs/DateRangePicker';
-import Card from '@/components/shared/cards/Card';
+import DateRangePicker from '@/app/components/inputs/DateRangePicker';
+import Card from '@/app/components/shared/cards/Card';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux-hooks';
 import {
    arrayFromNumbers,
@@ -27,7 +27,6 @@ import {
    Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import useClinicCurrency from '@/lib/hooks/useClinicCurrency';
 import { changeTitle } from '@/lib/features/title/title_slice';
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import RefreshRounded from '@mui/icons-material/RefreshRounded';
@@ -58,6 +57,8 @@ export default function DashboardView({
    appointments,
    patients,
 }: IDashboardView) {
+   console.log('Appointments in DashboardView:', appointments); // Debugging purposes
+   console.log('Patients in DashboardView:', patients); // Debugging purposes
    const dispatch = useAppDispatch();
 
    const [loading, startTransition] = useTransition();
@@ -78,7 +79,7 @@ export default function DashboardView({
 
    const [endDate, setEndDate] = useState<DateValue>(today(timezone));
 
-   const currency = useClinicCurrency();
+
 
    function getAppointmentsFiltered() {
       return appointments.filter(({ appointment: { creation_date } }) => {
@@ -121,7 +122,7 @@ export default function DashboardView({
          let singleFound = false;
 
          appointments.some(({ appointment }) => {
-            if (appointment.patient_id === user.id && isPaid(appointment)) {
+            if (appointment.patient_id === 1 && isPaid(appointment)) {
                if (appointment.from_package) {
                   packageFound = true;
                } else {
@@ -357,7 +358,7 @@ export default function DashboardView({
                   Total de ventas registradas
                </h2>
                <p className="mb-5 text-center text-3xl">
-                  {formatPrice(groupedAppointments.totalSold, currency)}
+                  {formatPrice(groupedAppointments.totalSold, "COP")}
                </p>
                <Line
                   options={{
@@ -427,7 +428,7 @@ export default function DashboardView({
                      labels,
                      datasets: [
                         {
-                           label: `Ventas (${currency})`,
+                           label: `Ventas (${"COP"})`,
                            data: groupedAppointments.data.map(group =>
                               group.prices.reduce((a, b) => a + b, 0),
                            ),
@@ -486,14 +487,14 @@ export default function DashboardView({
                                  <p className="w-full truncate">
                                     {formatPrice(
                                        sells > 0 ? earns / sells : 0,
-                                       currency,
+                                       "COP",
                                     )}
                                  </p>
                                  <p className="w-full truncate font-semibold">
                                     Total vendido
                                  </p>
                                  <p className="w-full truncate">
-                                    {formatPrice(earns, currency)}
+                                    {formatPrice(earns, "COP")}
                                  </p>
                               </div>
                            </div>

@@ -1,12 +1,11 @@
 import type { PropsWithChildren } from 'react';
 import AdminSidebar from './components/AdminSidebar';
 import AdminHeader from './components/AdminHeader';
-import { withSSRContext } from 'aws-amplify';
+//import { withSSRContext } from 'aws-amplify';
 import { headers } from 'next/headers';
 import { getUserByCognitoId } from '@/services/user';
 import { clinicRoutes } from '@/lib/routes';
 import { redirect } from 'next/navigation';
-import { getClinicBySlug } from '@/services/clinic';
 import RevalidationClientSide from './components/RevalidationClientSide';
 import LayoutChildrenWrapper from './components/LayoutChildrenWrapper';
 
@@ -17,12 +16,12 @@ interface ILayout extends PropsWithChildren<unknown> {
 }
 
 export default async function Layout({ children, params }: ILayout) {
-   const SSR = withSSRContext({
+   /*const SSR = withSSRContext({
       req: { headers: { cookie: headers().get('cookie') } },
    });
-
+   
    try {
-      const { username } = await SSR.Auth.currentAuthenticatedUser();
+      //const { username } = await SSR.Auth.currentAuthenticatedUser();
 
       const [
          { data: user },
@@ -30,7 +29,7 @@ export default async function Layout({ children, params }: ILayout) {
             data: { clinic },
          },
       ] = await Promise.all([
-         getUserByCognitoId(params.slug, username),
+         //getUserByCognitoId(params.slug, username),
          getClinicBySlug(params.slug),
       ]);
 
@@ -40,26 +39,25 @@ export default async function Layout({ children, params }: ILayout) {
       ) {
          throw Error("The users isn't the ADMINISTRATOR");
       }
+*/
 
       return (
          <main className="flex">
-            <RevalidationClientSide
-               slug={params.slug}
-               route={clinicRoutes(params.slug).login}
-            />
-            <AdminSidebar clinic={clinic} />
+            <AdminSidebar />
             <div
                id="admin-body"
                className="grid h-screen w-full grid-rows-[auto_1fr]"
             >
                <AdminHeader />
-               <LayoutChildrenWrapper slug={params.slug}>
+               <LayoutChildrenWrapper>
                   {children}
                </LayoutChildrenWrapper>
             </div>
          </main>
       );
+
+      /*
    } catch (error) {
-      redirect(clinicRoutes(params.slug).login);
-   }
+      redirect(clinicRoutes().login);
+   }*/
 }

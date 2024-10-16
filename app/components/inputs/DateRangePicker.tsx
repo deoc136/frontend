@@ -8,7 +8,7 @@ import {
 } from 'react-stately';
 import DateField from './DateField';
 import Button from '../shared/Button';
-import CalendarRoundedIcon from '@spectrum-icons/workflow/Calendar';
+//import CalendarRoundedIcon from '@spectrum-icons/workflow/Calendar';
 import Popover from '../shared/Popover';
 import Dialog from '../modal/Dialog';
 import Card from '../shared/cards/Card';
@@ -61,11 +61,11 @@ export default function DateRangePicker(
                <CalendarMonthRounded className="!text-xl" />
             </Button>
          </div>
-         {props.errorMessage && (
+         {/*props.errorMessage && (
             <div className="mt-4 text-error" {...errorMessageProps}>
                {props.errorMessage}
             </div>
-         )}
+         )*/}
          {state.isOpen && (
             <Popover state={state} triggerRef={ref}>
                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 lg:bg-transparent">

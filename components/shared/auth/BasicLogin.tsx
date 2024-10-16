@@ -5,6 +5,8 @@ import TextField from '@/app/components/TextField';
 import Button, { Variant } from '../Button';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useKeyboard } from 'react-aria';
+import { useRouter } from 'next/navigation'; 
+import { clinicRoutes } from '@/lib/routes';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 import useDictionary from '@/lib/hooks/useDictionary';
 
@@ -32,6 +34,19 @@ export default function BasicLogin({
    closerButton,
 }: IBasicLogin) {
    const dic = useDictionary();
+   const router = useRouter(); 
+
+   const handleLogin = () => {
+      setLoading(true);
+      if (password === 'dccapp_2024') {
+         const adminHomeRoute = clinicRoutes().admin_home;  // Get the admin home route
+         router.push(adminHomeRoute); // Navigate to the desired page
+      } else {
+         // Handle incorrect password case, show error, etc.
+         setLoading(false);
+         alert('Incorrect password'); // You can replace this with better error handling
+      }
+   };
 
    const [loading, setLoading] = useState(false);
 
@@ -68,7 +83,8 @@ export default function BasicLogin({
          </div>
          <Button
             variant={Variant.primary}
-            onPress={() => send(setLoading)}
+            //onPress={() => send(setLoading)}
+            onPress={handleLogin} 
             isDisabled={!(username.length && password.length) || loading}
             className={`${closerButton ? 'mt-5' : 'mt-16 sm:mt-12'}`}
          >

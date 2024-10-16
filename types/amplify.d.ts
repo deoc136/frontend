@@ -6,16 +6,6 @@ export interface IAmplifyError {
 
 export interface CognitoUser {
    username: string;
-   pool: Pool;
-   Session: null;
-   client: Client;
-   signInUserSession: SignInUserSession;
-   authenticationFlowType: string;
-   storage: Storage;
-   keyPrefix: string;
-   userDataKey: string;
-   attributes: Attributes;
-   preferredMFA: string;
 }
 
 export interface Attributes {

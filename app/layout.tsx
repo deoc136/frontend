@@ -5,6 +5,9 @@ import { Providers } from '@/app/provider';
 import { Side, applyAxiosConfig } from '@/config/axios-config';
 import PatientHeader from './patient/components/PatientHeader';
 import PatientFooter from './patient/components/PatientFooter';
+import { Amplify } from 'aws-amplify';
+import awsconfig from '@/src/aws-exports';
+
 
 const lato = Lato({
    subsets: ['latin'],
@@ -21,7 +24,7 @@ const poppins = Poppins({
 
 
 
-
+Amplify.configure(awsconfig);
 applyAxiosConfig(Side.server);
 
 export default async function RootLayout({

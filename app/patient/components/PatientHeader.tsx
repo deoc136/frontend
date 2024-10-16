@@ -34,9 +34,8 @@ enum Route {
 }
 
 const bannerImages = [
-   'https://eatsopinionfiles.s3.amazonaws.com/DCC_TEMP/Bioestimulacion.png',
-   'https://eatsopinionfiles.s3.amazonaws.com/DCC_TEMP/manejo_manchas.png',
-   'https://eatsopinionfiles.s3.amazonaws.com/DCC_TEMP/Bioestimulacion.png',
+   'https://appdccimages.s3.amazonaws.com/Banner/BANNER_WEB_DR_CARLOS_CARVAJAL_CAPILAR.jpg',
+   'https://appdccimages.s3.amazonaws.com/Banner/BANNER_WEB_DR_CARLOS_CARVAJAL_CORPORAL.jpg'
 ];
 
 
@@ -122,7 +121,7 @@ export default function PatientHeader() {
     useEffect(() => {
       const interval = setInterval(() => {
          handleNextBanner();
-      }, 3000); // 5 seconds
+      }, 5000); // 5 seconds
 
       // Clean up interval on unmount
       return () => clearInterval(interval);
@@ -206,17 +205,17 @@ export default function PatientHeader() {
 
          {hasBg && (
                      <>         
-                     <div className="relative w-auto h-96 lg:h-[620px] overflow-hidden my-10 lg:px-50 lg:m-10 lg:mx-24 flex items-center justify-between">
+                     <div className="relative w-auto h-56 lg:h-[620px] overflow-hidden my-10 lg:px-50 lg:m-10 lg:mx-24 flex items-center justify-between">
                      {/* Left Arrow */}
                      <button
                         onClick={handlePrevBanner}
-                        className="bg-black bg-opacity-50 text-white p-4 rounded-full mx-2"
+                        className="bg-black bg-opacity-50 text-white p-0.5 lg:p-4 rounded-full mx-0.5 lg:mx-2"
                      >
                         &#9664;
                      </button>
                   
                      {/* Banner Image */}
-                     <div className="relative w-full h-full transition-all duration-500 ease-in-out my-4 lg:mx-40">
+                     <div className="relative w-full h-full transition-all duration-800 ease-in-out my-12 lg:my-12 lg:mx-40">
                         <Image
                            src={bannerImages[currentBannerIndex]}
                            alt="Banner"
@@ -228,7 +227,7 @@ export default function PatientHeader() {
                      {/* Right Arrow */}
                      <button
                         onClick={handleNextBanner}
-                        className="bg-black bg-opacity-50 text-white p-4 rounded-full mx-2"
+                        className="bg-black bg-opacity-50 text-white p-0.5 lg:p-4 rounded-full mx-0.5 lg:mx-2"
                      >
                         &#9654;
                      </button>
