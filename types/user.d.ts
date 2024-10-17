@@ -56,7 +56,6 @@ export interface NewUserService {
    service_id: number;
 }
 
-//
 
 export interface User {
    id: number;
