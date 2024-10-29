@@ -28,7 +28,7 @@ export function RadioGroup(props: IRadioGroup) {
          <RadioContext.Provider value={state}>{children}</RadioContext.Provider>
          {description && <div {...descriptionProps}>{description}</div>}
          {errorMessage && validationState === 'invalid' && (
-            <div {...errorMessageProps}>{errorMessage}</div>
+            <div {...errorMessageProps}></div>
          )}
       </div>
    );

@@ -1,7 +1,5 @@
 'use client';
 
-import { getClinicBySlug } from '@/services/clinic';
-import { findSoftwareOwnerByCognitoId } from '@/services/software-owner';
 import { getUserByCognitoId } from '@/services/user';
 import { signOut } from '@/lib/actions/signOut';
 import { GlobalRoute } from '@/lib/routes';
@@ -26,18 +24,13 @@ export default function RevalidationClientSide({
             const { username } = await Auth.currentAuthenticatedUser();
 
             const [
-               { data: user },
-               {
-                  data: { clinic },
-               },
+               { data: user },,
             ] = await Promise.all([
-               getUserByCognitoId(slug, username),
-               getClinicBySlug(slug),
+               getUserByCognitoId(slug),
             ]);
 
             if (
-               user.role !== 'ADMINISTRATOR' ||
-               clinic.administrator_id !== username
+               user.role !== 'ADMINISTRATOR'
             ) {
                throw Error("The users isn't the ADMINISTRATOR");
             }

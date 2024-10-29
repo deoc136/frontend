@@ -2,10 +2,12 @@
 
 import { useRef } from 'react';
 import { useDateSegment, useDateField, useLocale, DateValue } from 'react-aria';
+import type { // Importación de tipo explícita
+   DateSegment,
+   DateFieldStateOptions
+} from 'react-stately';
 import {
    DateFieldState,
-   DateFieldStateOptions,
-   DateSegment,
    useDateFieldState,
 } from 'react-stately';
 import { createCalendar } from '@internationalized/date';
@@ -48,7 +50,7 @@ export default function DateField({ squared, ...props }: IDateField) {
 }
 
 interface IDateSegment {
-   segment: DateSegment;
+   segment: DateSegment; // Se usa como tipo, que es el que está generando el conflicto.
    state: DateFieldState;
 }
 

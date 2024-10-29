@@ -17,9 +17,6 @@ interface IBasicLogin {
    setUsername: Dispatch<SetStateAction<string>>;
    setPassword: Dispatch<SetStateAction<string>>;
    resetPasswordUrl: string;
-   send: (
-      setLoading?: ((value: SetStateAction<boolean>) => void) | undefined,
-   ) => Promise<void>;
    closerButton?: boolean;
 }
 
@@ -27,7 +24,6 @@ export default function BasicLogin({
    resetPasswordUrl,
    error,
    password,
-   send,
    setPassword,
    setUsername,
    username,
@@ -50,17 +46,10 @@ export default function BasicLogin({
 
    const [loading, setLoading] = useState(false);
 
-   const { keyboardProps } = useKeyboard({
-      onKeyDown: ({ key }) => {
-         if (key.toLowerCase() === 'enter') {
-            send(setLoading);
-         }
-      },
-   });
 
    return (
       <div className="text-sm sm:text-base">
-         <div {...keyboardProps} className="flex flex-col gap-5">
+         <div className="flex flex-col gap-5">
             <TextField
                onChange={setUsername}
                type="text"

@@ -7,7 +7,7 @@ import PatientHeader from './patient/components/PatientHeader';
 import PatientFooter from './patient/components/PatientFooter';
 import { Amplify } from 'aws-amplify';
 import awsconfig from '@/src/aws-exports';
-
+import Head from 'next/head'; // Import Head component
 
 const lato = Lato({
    subsets: ['latin'],
@@ -22,8 +22,6 @@ const poppins = Poppins({
    variable: '--font-poppins',
 });
 
-
-
 Amplify.configure(awsconfig);
 applyAxiosConfig(Side.server);
 
@@ -32,27 +30,42 @@ export default async function RootLayout({
 }: {
    children: React.ReactNode;
 }) {
-
-
    return (
       <html
          className={`${poppins.variable} ${lato.variable} scroll-smooth`}
          lang="es"
       >
+         <Head>
+            {/* Google Analytics */}
+            <script
+               async
+               src="https://www.googletagmanager.com/gtag/js?id=G-DLTPLGFQTQ"
+            ></script>
+            <script
+               dangerouslySetInnerHTML={{
+                  __html: `
+                     window.dataLayer = window.dataLayer || [];
+                     function gtag(){dataLayer.push(arguments);}
+                     gtag('js', new Date());
+                     gtag('config', 'G-DLTPLGFQTQ');
+                  `,
+               }}
+            />
+         </Head>
          <body className="relative min-h-screen">
             <Providers>
-            <main className="relative">
-                     <div
-                        id="patient-body"
-                        className="grid min-h-screen grid-rows-[auto_auto_auto_1fr_auto]"
-                     >
-                        <PatientHeader />
-                        <div className="m-auto h-full w-full max-w-[1920px] self-start px-5 py-10 lg:px-12 lg:py-6">
-                           {children}
-                        </div>
-                        <PatientFooter />
+               <main className="relative">
+                  <div
+                     id="patient-body"
+                     className="grid min-h-screen grid-rows-[auto_auto_auto_1fr_auto]"
+                  >
+                     <PatientHeader />
+                     <div className="m-auto h-full w-full max-w-[1920px] self-start px-5 py-10 lg:px-12 lg:py-6">
+                        {children}
                      </div>
-                  </main>
+                     <PatientFooter />
+                  </div>
+               </main>
             </Providers>
          </body>
       </html>

@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 // Configura la URL base para Axios
-export const apiUrl = 'http://localhost:5000/';
+export const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/';
 
 export enum Side {
   client,

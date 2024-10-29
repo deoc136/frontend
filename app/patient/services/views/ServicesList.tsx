@@ -2,18 +2,11 @@
 
 import { Service } from '@/types/service';
 import ServiceCard from '@/app/components/ServiceCard';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { secondsToTimeExtended } from '@/lib/utils';
 import TextField from '@/app/components/TextField';
 import SessionCard from '../[id]/details/components/SessionCard';
 import { clinicRoutes } from '@/lib/routes';
-
-/*
-import Pagination from '@/components/shared/Pagination';
-import { Search } from '@mui/icons-material';
-import { useAppDispatch } from '@/lib/hooks/redux-hooks';
-import { changeTitle } from '@/lib/features/title/title_slice';
-*/
 import { createPortal } from 'react-dom';
 import useDictionary from '@/lib/hooks/useDictionary';
 
@@ -21,17 +14,11 @@ interface IServicesList {
    services: Service[];
 }
 
-
 export default function ServicesList({ services }: IServicesList) {
    const dic = useDictionary();
-
    const [search, setSearch] = useState('');
-
-   //const dispatch = useAppDispatch();
-
    const [page, setPage] = useState(0);
    const limit = 15;
-
    const [patientNavbar, setPatientNavbar] = useState<Element | null>(null);
 
    function filter($services: Service[]) {
@@ -49,16 +36,7 @@ export default function ServicesList({ services }: IServicesList) {
    useEffect(() => {
       setPage(0);
    }, [search, services.length]);
-   /*
-   useEffect(() => {
-      dispatch(
-         changeTitle({
-            goBackRoute: null,
-            value: '',
-         }),
-      );
-   }, [dispatch]);
-*/
+
    useEffect(() => {
       setPatientNavbar(document.querySelector('#patient-navbar') ?? null);
    }, []);
@@ -75,7 +53,6 @@ export default function ServicesList({ services }: IServicesList) {
                      aria-label="search"
                      value={search}
                      onChange={setSearch}
-                     //startIcon={<Search className="text-base lg:text-xl" />}
                      className="w-full text-xs lg:text-base"
                      placeholder={dic.texts.flows.search}
                   />
@@ -92,23 +69,27 @@ export default function ServicesList({ services }: IServicesList) {
             </div>
 
             <div className="flex flex-col gap-x-5 gap-y-10 md:flex-row">
-            <SessionCard
-               price={9000}
-               title={`1 ${dic.texts.various.session?.toLowerCase()}`}
-               url={
-                  clinicRoutes().patient_services
-               }
-            />
-         </div>
-            {/*
-            <Pagination
-               page={page}
-               setPage={setPage}
-               totalPages={Math.ceil(services.length / limit)}
-            />
-            */}
+               <SessionCard
+                  price={9000}
+                  title={`1 ${dic.texts.various.session?.toLowerCase()}`}
+                  url={clinicRoutes().patient_services}
+               />
+            </div>
          </section>
-         
+
+         {/* WhatsApp Icon */}
+         <a
+            href="https://api.whatsapp.com/send?phone=573105345062" // Replace with your WhatsApp link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-40 right-1 md:right-5 z-50"
+         >
+            <img
+               src="/whatsapp-svgrepo-com.svg"
+               alt="Contact us on WhatsApp"
+               className="w-12 h-12" // Adjust size as needed
+            />
+         </a>
       </>
    );
 }
