@@ -85,7 +85,7 @@ export default function ServicesList({ services }: IServicesList) {
             className="fixed bottom-40 right-1 md:right-5 z-50"
          >
             <img
-               src="/whatsapp-svgrepo-com.svg"
+               src="https://appdccimages.s3.us-east-1.amazonaws.com/Services/waicon.svg"
                alt="Contact us on WhatsApp"
                className="w-12 h-12" // Adjust size as needed
             />

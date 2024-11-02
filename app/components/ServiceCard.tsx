@@ -30,6 +30,7 @@ export default function ServiceCard({ service }: IServiceCard) {
                   className="object-cover object-center"
                   fill
                   alt="service image"
+                  quality={90} 
                   src={
                      service.picture_url?.length
                         ? service.picture_url

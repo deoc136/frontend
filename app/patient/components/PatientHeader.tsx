@@ -152,6 +152,7 @@ export default function PatientHeader() {
                   alt="clinic logo"
                   src={logo}
                   fill
+                  quality={90} 
                   className="lg:ml-14 object-contain lg:scale-[1.1]"
                />
             </div>
@@ -220,6 +221,7 @@ export default function PatientHeader() {
                            src={bannerImages[currentBannerIndex]}
                            alt="Banner"
                            fill
+                           quality={90} 
                            className="object-cover rounded-lg"
                         />
                      </div>

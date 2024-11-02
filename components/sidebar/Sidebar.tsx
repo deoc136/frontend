@@ -56,6 +56,7 @@ export default function Sidebar({
                <Image
                   src={logo}
                   alt="logo"
+                  quality={90} 
                   fill
                   className="object-contain"
                />
