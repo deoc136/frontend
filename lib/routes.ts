@@ -81,7 +81,7 @@ export function admin_routes() {
       admin_home: `${admin}/home`,
 
       admin_appointments,
-      admin_appointments_actives: `${admin_appointments}/actives`,
+      admin_appointments_actives: `${admin_appointments}/activities`,
       admin_appointments_history: `${admin_appointments}/history`,
 
       admin_appointments_id,
@@ -153,7 +153,7 @@ export function therapist_routes() {
 }
 
 export function receptionist_routes() {
-   const receptionist = `/receptionist` as const;
+   const receptionist = `/administration` as const;
 
    const receptionist_appointments = `${receptionist}/appointments` as const;
    const receptionist_patients = `${receptionist}/patients` as const;
@@ -185,9 +185,9 @@ export function receptionist_routes() {
 
       receptionist_appointments,
       receptionist_appointments_id,
-      receptionist_appointments_actives: `${receptionist_appointments}/actives`,
-      receptionist_appointments_actives_create_single: `${receptionist_appointments}/actives/create/single`,
-      receptionist_appointments_actives_create_package: `${receptionist_appointments}/actives/create/package`,
+      receptionist_appointments_actives: `${receptionist_appointments}/activities`,
+      receptionist_appointments_actives_create_single: `${receptionist_appointments}/activities/create/single`,
+      receptionist_appointments_actives_create_package: `${receptionist_appointments}/activities/create/package`,
       receptionist_appointments_history: `${receptionist_appointments}/history`,
    } as const;
 }

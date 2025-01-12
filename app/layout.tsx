@@ -5,9 +5,8 @@ import { Providers } from '@/app/provider';
 import { Side, applyAxiosConfig } from '@/config/axios-config';
 import PatientHeader from './patient/components/PatientHeader';
 import PatientFooter from './patient/components/PatientFooter';
-import { Amplify } from 'aws-amplify';
 import awsconfig from '@/src/aws-exports';
-import Head from 'next/head'; // Import Head component
+import Script from 'next/script'; // Import the Script component
 
 const lato = Lato({
    subsets: ['latin'],
@@ -22,7 +21,6 @@ const poppins = Poppins({
    variable: '--font-poppins',
 });
 
-Amplify.configure(awsconfig);
 applyAxiosConfig(Side.server);
 
 export default async function RootLayout({
@@ -35,13 +33,16 @@ export default async function RootLayout({
          className={`${poppins.variable} ${lato.variable} scroll-smooth`}
          lang="es"
       >
-         <Head>
-            {/* Google Analytics */}
-            <script
-               async
+         <head />
+         <body className="relative min-h-screen">
+            {/* Google Analytics Script */}
+            <Script
                src="https://www.googletagmanager.com/gtag/js?id=G-85QRTMK0C4"
-            ></script>
-            <script
+               strategy="afterInteractive"
+            />
+            <Script
+               id="google-analytics"
+               strategy="afterInteractive"
                dangerouslySetInnerHTML={{
                   __html: `
                      window.dataLayer = window.dataLayer || [];
@@ -51,8 +52,6 @@ export default async function RootLayout({
                   `,
                }}
             />
-         </Head>
-         <body className="relative min-h-screen">
             <Providers>
                <main className="relative">
                   <div

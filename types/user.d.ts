@@ -1,6 +1,6 @@
 import { Service } from './service';
 
-export type Role = 'ADMINISTRATOR' | 'PATIENT' | 'RECEPTIONIST';
+export type Role = 'ADMINISTRATOR' | 'PATIENT' | 'RECEPTIONIST' | 'DOCTOR';
 export type Genre = 'MALE' | 'FEMALE' | 'OTHER';
 
 export interface NewUser {
@@ -8,15 +8,14 @@ export interface NewUser {
    names: string;
    last_names: string;
    phone: string;
-   address: string;
+   address?: string;
    email: string;
    profile_picture: string;
-   cognito_id: string;
+   cognito_id?: string;
    role: Role;
-   id?: number | undefined;
+   id?: number;
    identification?: string;
    identification_type?: number;
-   headquarter_id?: number;
    retired?: boolean;
    birth_date?: Date;
    genre?: Genre;
@@ -63,7 +62,7 @@ export interface User {
    names: string;
    last_names: string;
    phone: string;
-   address: string;
+   address?: string;
    email: string;
    profile_picture: string;
    cognito_id: string;
