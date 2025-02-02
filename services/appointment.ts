@@ -28,11 +28,8 @@ async function cancelReminder(data: ReminderInputType) {
    } catch (error) {}
 }
 */
-export async function getAppointmentById(slug: string, id: string) {
+export async function getAppointmentById(id: string) {
    return await axios.get<Appointment>(`/appointment/get/${id}`, {
-      headers: {
-         slug,
-      },
    });
 }
 
@@ -187,7 +184,7 @@ export async function createMultipleWithPatient(
    return { id };
 }
 
-export async function editAppointment(slug: string, appointment: Appointment) {
+export async function editAppointment( appointment: Appointment) {
    const response = await axios.put('/appointment/edit', appointment, {
    });
 

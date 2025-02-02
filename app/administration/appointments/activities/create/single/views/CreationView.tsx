@@ -43,6 +43,7 @@ interface ICreationVIew {
    patients: User[];
    userServices: UserService[];
    appointments: Appointment[];
+   doctors: User[];
 }
 
 enum AppointmentCreationState {
@@ -60,7 +61,7 @@ const initialState = {
    hour: '',
    minute: 0,
    patient_id: '',
-   therapist_id: '',
+   doctor_id: '',
    payment_method: 'ONLINE' as PaymentMethod,
 };
 
@@ -69,6 +70,7 @@ export default function CreationView({
    patients,
    userServices,
    appointments,
+   doctors,
 }: ICreationVIew) {
    const router = useRouter();
 
@@ -131,6 +133,7 @@ export default function CreationView({
                   price: values.price,
                   state: values.state,
                   creation_date: new Date().toString(),
+                  doctor_id: Number(values.doctor_id),
                },
                user: newPatient,
             });
@@ -147,6 +150,7 @@ export default function CreationView({
                price: values.price,
                state: values.state,
                creation_date: new Date().toString(),
+               doctor_id: Number(values.doctor_id),
             });
             console.log('Appointment created with existing patient, id:', id);
             setAppointmentId(id);
@@ -188,6 +192,7 @@ export default function CreationView({
                   appointments={appointments}
                   newPatient={newPatient}
                   setNewPatient={setNewPatient}
+                  doctors={doctors}
                />
             ) : (
                <PreviewView

@@ -65,13 +65,13 @@ export async function getTherapistsByServiceId(slug: string, id: string) {
    );
 }
 
-
-
-export async function getAllUsers(slug: string) {
+export async function getAllUsers() {
    return axios.get<User[]>('/user/getAll', {
-      headers: {
-         slug,
-      },
+   });
+}
+
+export async function getAllDoctors() {
+   return axios.get<User[]>('/user/getAllByRole/DOCTOR', {
    });
 }
 

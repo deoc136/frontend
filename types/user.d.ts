@@ -32,6 +32,8 @@ export interface NewUserOutline {
    role: string;
    phone: string;
    address?: string;
+   identification?: string;
+   identification_type?: number;
 }
 
 interface NewSchedule {
@@ -97,6 +99,7 @@ export interface FullFilledUser {
 export interface TherapistWithSchedule
    extends Omit<FullFilledUser, 'services'> {}
 
+   
 export interface UserService {
    id: number;
    user_id: number;
@@ -121,3 +124,10 @@ export interface HourRange {
    start_hour: string;
    end_hour: string;
 }
+
+export interface IdentificationType {
+  id: number;
+  value: string;
+}
+
+

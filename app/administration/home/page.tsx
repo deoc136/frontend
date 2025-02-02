@@ -18,9 +18,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
          appointments={appointments.filter(
             ({ appointment: { hidden } }) => !hidden,
          )}
-         patients={patients.filter(
-            ({ user: { retired, enabled } }) => !retired && enabled,
-         )}
+         patients={patients}
       />
    );
 }

@@ -114,7 +114,7 @@ export default function ActiveAppointmentsTable({
                      <Cell>
                         <Link
                            className="text-secondary underline underline-offset-2"
-                           href={`/appointments/${appointment.id}/details`}
+                           href={`/administration/appointments/${appointment.id}/details`}
                         >
                            Ver detalles
                         </Link>

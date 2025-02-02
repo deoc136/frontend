@@ -64,12 +64,10 @@ export default function DetailsView({
 
 
    useEffect(() => {
-      sort(directionState[0], columnState[0]);
 
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [...directionState, ...columnState, forms]);
+   }, [...directionState, ...columnState]);
 
-   const code = usePhoneCode();
 
    const isClosed = useMemo(
       () => ['CANCELED', 'CLOSED'].some(state => appointment.state === state),
@@ -123,7 +121,6 @@ export default function DetailsView({
                      <Button
                         href={
                            clinicRoutes(
-                              clinic.slug,
                            ).receptionist_appointments_id(appointment.id).edit
                         }
                         className="flex items-center gap-2 !px-6 !py-2"
@@ -154,7 +151,7 @@ export default function DetailsView({
                                  setChangingState(true);
 
                                  try {
-                                    await editAppointment(clinic.slug, {
+                                    await editAppointment( {
                                        ...appointment,
                                        assistance: 'ATTENDED',
                                     });
@@ -224,27 +221,17 @@ export default function DetailsView({
                <div>
                   <p className="mb-2 font-semibold">Hora</p>
                   <p className="text-on-background-text">
-                     {
-                        hours.find(
-                           ({ code }) => appointment.hour.toString() === code,
-                        )?.name
-                     }
+                     {`${appointment.hour.toString().padStart(2, '0')}:${appointment.minute.toString().padStart(2, '0')}`}
                   </p>
                </div>
                <div>
                   <p className="mb-2 font-semibold">Precio</p>
                   <p className="text-on-background-text">
-                     {formatPrice(Number(appointment.price), clinicCurrency)}
+                     {formatPrice(Number(appointment.price))}
                   </p>
                </div>
                <div>
                   <p className="mb-2 font-semibold">Lugar del servicio</p>
-                  <p className="text-on-background-text">
-                     {headquarter.name} -{' '}
-                     {headquarter.index > 0
-                        ? `Sede ${headquarter.index + 1}`
-                        : 'Sede principal'}
-                  </p>
                </div>
                {!!appointment.assistance && isClosed && (
                   <div>
@@ -260,27 +247,17 @@ export default function DetailsView({
             <h3 className="text-xl">Información del paciente</h3>
             <section className="mx-24">
                <UserOverviewCard
-                  code={code}
                   url={
-                     clinicRoutes(clinic.slug).receptionist_patients_id(
+                     clinicRoutes().receptionist_patients_id(
                         patient.id,
                      ).details
                   }
                   user={patient}
                />
             </section>
-            <h3 className="text-xl">Información del terapeuta</h3>
+            <h3 className="text-xl">Información del Doctor</h3>
             <section className="mx-24">
-               <UserOverviewCard code={code} user={therapist} />
-            </section>
-            <h3 className="text-xl">Documentos adjuntos</h3>
-            <section className="mx-24 grid gap-5">
-               <SubmittedFormsTable
-                  columnState={columnState}
-                  directionState={directionState}
-                  forms={sortedForms}
-                  submittedForms={submittedForms}
-               />
+               <UserOverviewCard user={therapist} />
             </section>
             {isClosed && (
                <section className="flex justify-between">
@@ -288,7 +265,7 @@ export default function DetailsView({
                   <Button
                      className="flex !w-max items-center gap-2 !px-9"
                      href={
-                        clinicRoutes(clinic.slug).receptionist_appointments_id(
+                        clinicRoutes().receptionist_appointments_id(
                            appointment.id,
                         ).history
                      }
@@ -382,7 +359,7 @@ function ClosedModal({ isOpen, setIsOpen }: IClosedModal) {
                <div className="grid w-full grid-cols-2 gap-5">
                   <Button
                      variant={Variant.secondary}
-                     href={clinicRoutes(slug).receptionist_appointments_actives}
+                     href={clinicRoutes().receptionist_appointments_actives}
                   >
                      Volver a reservas activas
                   </Button>

@@ -14,7 +14,7 @@ export default function Layout({
    useEffect(() => {
       dispatch(
          changeTitle({
-            goBackRoute: clinicRoutes(params.slug).receptionist_appointments_id(
+            goBackRoute: clinicRoutes().receptionist_appointments_id(
                Number(params.id),
             ).details,
             value: 'Reservas / Reservas activas / Editar reserva',

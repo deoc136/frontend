@@ -110,7 +110,7 @@ export default function PatientsTable({
                      </Cell>
                      <Cell>
                         <Link
-                           href={`/administration/patients/${user.id}`}
+                           href={`/administration/patients/${user.id}/details`}
                            className="text-primary hover:underline"
                         >
                            Ver detalles

@@ -16,10 +16,10 @@ export const revalidate = 0;
 export default async function Page({
    params,
 }: {
-   params: { id: string; slug: string };
+   params: { id: string };
 }) {
    try {
-      const appointment = (await getAppointmentById(params.slug, params.id))
+      const appointment = (await getAppointmentById(params.id))
          .data;
 
       if (appointment.hidden) throw Error();

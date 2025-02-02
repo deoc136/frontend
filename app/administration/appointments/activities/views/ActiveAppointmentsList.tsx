@@ -77,7 +77,7 @@ export default function ActiveAppointmentsList({
                     }/${date.getFullYear()}`)(new Date(el.appointment.date)),
                  `${el.appointment.hour}:${el.appointment.minute.toString().padStart(2, '0')}`,
                  translateAppointmentState(el.appointment.state),
-              ].some(att => att.toLowerCase().includes(search.toLowerCase()))
+              ].some(att => att?.toString().toLowerCase().includes(search.toLowerCase()))
             : true,
       );
    }

@@ -6,7 +6,8 @@ import { useAppSelector } from '@/lib/hooks/redux-hooks';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import logo from '@/public/logodcc.svg';
+import logo from '@/public/logoDCC_white.svg';
+
 
 export default function AdminHeader() {
    const { goBackRoute, value } = useAppSelector(store => store.title);

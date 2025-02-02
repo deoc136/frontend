@@ -13,6 +13,7 @@ import {
    AppointmentState,
    PaymentMethod,
 } from '@/types/appointment';
+import { Genre, Role } from '@/types/user';
 export function makeNegativeNumberZero(num: number) {
    return num < 0 ? 0 : num;
 }
@@ -108,6 +109,20 @@ export function translateAppointmentState(state: AppointmentState, dic = es) {
          return dic.texts.appointments.pending;
       case 'TO_PAY':
          return dic.texts.appointments.to_pay;
+   }
+}
+
+
+export function translateRole(role: Role, dic = es) {
+   switch (role) {
+      case 'ADMINISTRATOR':
+         return dic.texts.roles.admin;
+      case 'RECEPTIONIST':
+         return dic.texts.roles.receptionist;
+      case 'PATIENT':
+         return dic.texts.roles.patient;
+      case 'DOCTOR':
+         return dic.texts.roles.therapist;
    }
 }
 

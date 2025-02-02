@@ -6,6 +6,9 @@ import { z } from 'zod';
 import { onlyLettersRegex, onlyNumbersRegex } from '@/lib/regex';
 import { NewUserOutline } from '@/types/user';
 import { useAppSelector } from '@/lib/hooks/redux-hooks';
+import ComboBox from '@/app/components/inputs/ComboBox';
+import { Item } from 'react-stately';
+import { identificationTypes } from '@/types/constants';
 
 interface ICreateUserForm {
    newUser: NewUserOutline | undefined;
@@ -74,6 +77,39 @@ export default function CreateUserForm({
             placeholder="Ingresar número"
             label="Número de teléfono"
             isRequired
+         />
+         <ComboBox
+            placeholder="Ingresar tipo"
+            label="Tipo de identificación (opcional)"
+            selectedKey={newUser?.identification_type?.toString()}
+            onSelectionChange={val => {
+               val && setNewUser(prev => prev && { 
+                  ...prev, 
+                  identification_type: Number(val)
+               });
+            }}
+            errorMessage={
+               errors?.find(error => error.path.at(0) === 'identification_type')?.message
+            }
+         >
+            {identificationTypes.map(type => (
+               <Item key={type.id} textValue={type.value}>
+                  <div className="px-4 py-3 hover:bg-primary-100">
+                     {type.value}
+                  </div>
+               </Item>
+            ))}
+         </ComboBox>
+         <TextField
+            value={newUser?.identification}
+            onChange={val => 
+               setNewUser(prev => prev && { ...prev, identification: val })
+            }
+            errorMessage={
+               errors?.find(error => error.path.at(0) === 'identification')?.message
+            }
+            placeholder="Ingresar número"
+            label="Número de identificación (opcional)"
          />
          <div className="col-span-2">
             <TextField

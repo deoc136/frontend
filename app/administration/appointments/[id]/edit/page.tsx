@@ -1,57 +1,53 @@
 import { clinicRoutes } from '@/lib/routes';
 import { getAllAppointments, getAppointmentById } from '@/services/appointment';
-import { getAllForms, getAllSubmittedFormsByPatientId } from '@/services/forms';
-import { getHeadquarterById } from '@/services/headquarter';
 import { getServiceById } from '@/services/service';
-import { getAllTherapists, getUserById } from '@/services/user';
+import { getAllDoctors, getUserById } from '@/services/user';
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import EditView from './views/EditView';
 import { getAllUserServices } from '@/services/user_service';
-import { meta_descriptions } from '@/lib/seo/meta_descriptions';
-
-export const metadata: Metadata = {
-   title: 'Editar cita',
-   description: meta_descriptions.edit_appointment,
-};
 
 export const revalidate = 0;
 
 export default async function Page({
    params,
 }: {
-   params: { id: string; slug: string };
+   params: { id: string; };
 }) {
    try {
-      const appointment = (await getAppointmentById(params.slug, params.id))
-         .data;
+      console.log('Fetching appointment with ID:', params.id);
+      const appointment = (await getAppointmentById(params.id)).data;
+      console.log('Fetched appointment:', appointment);
 
       if (
          appointment.hidden ||
          appointment.state === 'CLOSED' ||
          appointment.state === 'CANCELED'
-      )
+      ) {
+         console.warn('Appointment is hidden, closed, or canceled:', appointment);
          throw Error();
+      }
 
+      console.log('Fetching related data for appointment...');
       const [
          { data: patient },
          { data: service },
-         { data: forms },
-         { data: submittedForms },
-         { data: headquarter },
-         { data: therapists },
+         therapists,
          { data: userServices },
          { data: appointments },
       ] = await Promise.all([
-         getUserById(params.slug, appointment.patient_id.toString()),
-         getServiceById(params.slug, appointment.service_id.toString()),
-         getAllForms(params.slug),
-         getAllSubmittedFormsByPatientId(params.slug, appointment.patient_id),
-         getHeadquarterById(params.slug, appointment.headquarter_id.toString()),
-         getAllTherapists(params.slug),
-         getAllUserServices(params.slug),
-         getAllAppointments(params.slug),
+         getUserById(appointment.patient_id.toString()),
+         getServiceById(appointment.service_id.toString()),
+         getAllDoctors(),
+         getAllUserServices(),
+         getAllAppointments(),
       ]);
+
+      console.log('Fetched patient:', patient);
+      console.log('Fetched service:', service);
+      console.log('Fetched therapists:', therapists);
+      console.log('Fetched user services:', userServices);
+      console.log('Fetched appointments:', appointments);
 
       return (
          <EditView
@@ -59,18 +55,14 @@ export default async function Page({
                ({ id }) => id !== appointment.id,
             )}
             appointment={appointment}
-            forms={forms}
             patient={patient}
-            submittedForms={submittedForms}
             service={service}
-            headquarter={headquarter}
-            therapists={therapists.filter(
-               ({ user }) => user.enabled && !user.retired,
-            )}
+            therapists={therapists.data}
             userServices={userServices}
          />
       );
    } catch (error) {
-      redirect(clinicRoutes(params.slug).receptionist_appointments_actives);
+      console.error('Error in Page component:', error);
+      redirect(clinicRoutes().receptionist_appointments_actives);
    }
 }

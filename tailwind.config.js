@@ -3,6 +3,7 @@ const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
+   darkMode: false,
    content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -166,6 +167,9 @@ module.exports = {
                fontWeight: '600',
                fontSize: '.75rem',
                lineHeight: '1.125rem',
+            },
+            body: {
+               color: '#000000',
             },
          });
       }),

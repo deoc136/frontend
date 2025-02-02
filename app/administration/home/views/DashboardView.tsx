@@ -13,7 +13,7 @@ import {
 } from '@/lib/utils';
 import { PatientWithAppointment, editUser } from '@/services/user';
 import { Appointment, AppointmentWithNames } from '@/types/appointment';
-import { CalendarDateTime, today } from '@internationalized/date';
+import { CalendarDate, today } from '@internationalized/date';
 import { Fragment, ReactNode, useEffect, useState, useTransition } from 'react';
 import { DateValue } from 'react-aria';
 import {
@@ -72,11 +72,23 @@ export default function DashboardView({
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [dispatch]);
 
-   const minDate = new CalendarDateTime(2023, 11, 1);
+   const minDate = new CalendarDate(2023, 11, 1);
 
-   const [startDate, setStartDate] = useState<DateValue>(today(timezone));
+   const [startDate, setStartDate] = useState<DateValue>(() => {
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      return new CalendarDate(
+         oneMonthAgo.getFullYear(),
+         oneMonthAgo.getMonth() + 1,
+         oneMonthAgo.getDate()
+      );
+   });
 
-   const [endDate, setEndDate] = useState<DateValue>(today(timezone));
+   const [endDate, setEndDate] = useState<DateValue>(new CalendarDate(
+      today(timezone).year,
+      today(timezone).month,
+      today(timezone).day
+   ));
 
    function getAppointmentsFiltered() {
       return appointments.filter(({ appointment: { creation_date } }) => {

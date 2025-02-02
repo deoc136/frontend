@@ -1,4 +1,4 @@
-export type AppointmentState = 'PENDING' | 'TO_PAY' | 'CANCELED' | 'CLOSED';
+export type AppointmentState = 'TO_PAY'  | 'PENDING' | 'CANCELED' | 'CLOSED';
 
 export type PaymentMethod = 'ONLINE' | 'CASH' | 'CARD';
 
@@ -43,6 +43,7 @@ export interface NewAppointment {
    order_id?: string;
    invoice_id?: string;
    creation_date: string;
+   doctor_id: number;
 }
 
 export interface AppointmentWithNames {

@@ -83,7 +83,14 @@ export default function SelectPatientModal({
       address: z
          .string()
          .max(100, maxLengthError(100))
-         .optional()
+         .optional(),
+      identification: z
+         .string()
+         .max(30, maxLengthError(30))
+         .optional(),
+      identification_type: z
+         .number()
+         .optional(),
    });
 
    const [formErrors, setFormErrors] = useState<ZodError['errors']>();

@@ -10,6 +10,7 @@ import {
 } from 'react';
 import { z } from 'zod';
 import {
+   FullFilledUser,
    NewUser,
    User,
    UserService,
@@ -30,6 +31,7 @@ import Image from 'next/image';
 import { Appointment, PaymentMethod } from '@/types/appointment';
 import SelectPatientModal from '../../../components/SelectPatientModal';
 import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded';
+import TextField from '@/app/components/inputs/TextField';
 
 interface IFormView {
    errors?: z.ZodError['errors'];
@@ -41,6 +43,7 @@ interface IFormView {
    appointments: Appointment[];
    newPatient?: NewUser;
    setNewPatient: Dispatch<SetStateAction<NewUser | undefined>>;
+   doctors: User[];
 }
 
 export type ChangeValuesFunction = <T extends keyof NewAppointmentWithDate>(
@@ -57,6 +60,7 @@ export default function FormView({
    userServices,
    appointments,
    newPatient,
+   doctors,
    setNewPatient,
 }: IFormView) {
    function changeValues<T extends keyof typeof values>(
@@ -72,6 +76,20 @@ export default function FormView({
       () => patients.find(user => user.id.toString() === values.patient_id),
       [patients, values.patient_id],
    );
+   const [cardTherapist, setCardTherapist] = useState(!!values.doctor_id);
+
+   const filteredDoctors = useMemo(() => {
+      return doctors;
+   }, [doctors]);
+
+   const selectedDoctor = useMemo(
+      () =>
+         filteredDoctors.find(
+            ({ id }) => id.toString() === values.doctor_id,
+         ),
+      [values.doctor_id, filteredDoctors],
+   );
+
 
    return (
       <>
@@ -116,6 +134,66 @@ export default function FormView({
                      ))(
                      errors?.find(error => error.path.at(0) === 'patient_id')
                         ?.message,
+                  )}
+               </div>
+
+               <div className="col-span-2">
+                  {cardTherapist && selectedDoctor ? (
+                     <>
+                        <p className="mb-2 text-on-background-text label">
+                           Doctor
+                        </p>
+                        <UserOverviewCard
+                           user={selectedDoctor}
+                           extra={
+                              <Button
+                                 className="!bg-transparent !p-0"
+                                 aria-label="change therapist"
+                                 onPress={() => setCardTherapist(false)}
+                              >
+                                 <ChevronRightRoundedIcon className="!rotate-90 !fill-on-background-text" />
+                              </Button>
+                           }
+                        />
+                     </>
+                  ) : (
+                     <ComboBox
+                        placeholder="Selecciona un doctor"
+                        label="Doctor"
+                        selectedKey={values.doctor_id?.toString()}
+                        onSelectionChange={val => {
+                           if (val) {
+                              setValues(prev => ({
+                                 ...prev,
+                                 doctor_id: val.toString(),
+                                 hour: '',
+                              }));
+                              setCardTherapist(true);
+                           }
+                        }}
+                        errorMessage={
+                           errors?.find(
+                              error => error.path.at(0) === 'doctor_id',
+                           )?.message
+                        }
+                     >
+                        {doctors.map(({ id, names, last_names }) => (
+                           <Item
+                              key={id}
+                              textValue={cutFullName(names, last_names)}
+                           >
+                              <div className="flex w-full gap-3 px-4 py-3 hover:bg-primary-100">
+                                 <div className="relative aspect-square h-max w-10 overflow-hidden rounded-full">
+                                 </div>
+                                 <div>
+                                    <p className="mb-2 text-lg font-semibold">
+                                       {names} {last_names}
+                                    </p>
+                                 </div>
+                              </div>
+                           </Item>
+                        ))}
+                     </ComboBox>
                   )}
                </div>
                <ComboBox
@@ -230,6 +308,8 @@ export default function FormView({
                      </Item>
                   ))}
                </ComboBox>
+
+                   
             </section>
          </div>
       </>

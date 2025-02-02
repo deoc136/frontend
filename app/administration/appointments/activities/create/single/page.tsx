@@ -14,11 +14,13 @@ export default async function Page() {
       { data: patients },
       { data: userServices },
       { data: appointments },
+      { data: doctors },
    ] = await Promise.all([
       getAllServices(),
       getAllUsersByRole('PATIENT'),
       getAllUserServices(),
       getAllAppointments(),
+      getAllUsersByRole('DOCTOR'),
    ]);
 
    return (
@@ -29,6 +31,7 @@ export default async function Page() {
          )}
          userServices={userServices}
          appointments={appointments.filter(({ state }) => state !== 'CANCELED')}
+         doctors={doctors}
       />
    );
 }

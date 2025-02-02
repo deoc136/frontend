@@ -100,7 +100,7 @@
          "canceled": "Cancelada",
          "rated": "Calificada",
          "rate_service": "Calificar servicio",
-         "pending": "Pendiente",
+         "pending": "pagada",
          "to_pay": "Por pagar",
          "closed": "Finalizada",
          "missed": "No asistió",
@@ -153,7 +153,7 @@
          "main_headquarter": "Sede principal"
       },
       "roles": {
-         "therapist": "Terapeuta",
+         "therapist": "Doctor",
          "patient": "Paciente",
          "admin": "Administrador",
          "receptionist": "Recepcionista",
