@@ -44,19 +44,13 @@ export async function editUser(data: User, slug: string) {
    });
 }
 
-export async function getUserById(slug: string, id: string) {
+export async function getUserById( id: string) {
    return await axios.get<User>(`/user/get/${id}`, {
-      headers: {
-         slug,
-      },
    });
 }
 
 export async function getUserFullFilledById(slug: string, id: string) {
    return await axios.get<FullFilledUser>(`/user/getFullFilledById/${id}`, {
-      headers: {
-         slug,
-      },
    });
 }
 
@@ -71,19 +65,13 @@ export async function getTherapistsByServiceId(slug: string, id: string) {
    );
 }
 
-export async function getAllTherapists(slug: string) {
-   return await axios.get<TherapistWithSchedule[]>(`/user/getAllTherapists`, {
-      headers: {
-         slug,
-      },
+export async function getAllUsers() {
+   return axios.get<User[]>('/user/getAll', {
    });
 }
 
-export async function getAllUsers(slug: string) {
-   return axios.get<User[]>('/user/getAll', {
-      headers: {
-         slug,
-      },
+export async function getAllDoctors() {
+   return axios.get<User[]>('/user/getAllByRole/DOCTOR', {
    });
 }
 
@@ -93,18 +81,14 @@ export interface PatientWithAppointment extends User {
 
 export async function getAllPatients() {
    return axios.get<{ user: PatientWithAppointment }[]>(
-      '/user/getAllPatients',
-      {
-      },
+      '/user/getAllPatients'
    );
 }
 
-export async function getAllUsersByRole( role: Role) {
-   return axios.get<User[]>(`/user/getAllByRole/${role}`, {
-   });
+export async function getAllUsersByRole(role: Role) {
+   return axios.get<User[]>(`/user/getAllByRole/${role}`);
 }
 
 export async function getUserByCognitoId(cognitoId: string) {
-   return axios.get<User>(`/user/getByCognitoId/${cognitoId}`, {
-   });
+   return axios.get<User>(`/user/getByCognitoId/${cognitoId}`);
 }

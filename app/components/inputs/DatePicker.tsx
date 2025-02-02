@@ -21,7 +21,6 @@ export default function DatePicker(props: DatePickerStateOptions<DateValue>) {
       buttonProps,
       dialogProps,
       calendarProps,
-      errorMessageProps,
    } = useDatePicker({ ...props, 'aria-label': 'date picker' }, state, ref);
 
    return (
@@ -50,11 +49,6 @@ export default function DatePicker(props: DatePickerStateOptions<DateValue>) {
                <CalendarMonthRoundedIcon className="!text-xl" />
             </Button>
          </div>
-         {props.errorMessage && (
-            <div className="mt-4 text-error" {...errorMessageProps}>
-               {props.errorMessage}
-            </div>
-         )}
          {state.isOpen && (
             <Popover state={state} triggerRef={ref}>
                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 lg:bg-transparent">

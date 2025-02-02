@@ -118,11 +118,6 @@ export default function TextField({
                {description}
             </div>
          )}
-         {errorMessage && (
-            <div className="mt-4 text-error" {...errorMessageProps}>
-               {errorMessage}
-            </div>
-         )}
       </div>
    );
 }

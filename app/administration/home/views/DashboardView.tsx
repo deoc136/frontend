@@ -13,7 +13,7 @@ import {
 } from '@/lib/utils';
 import { PatientWithAppointment, editUser } from '@/services/user';
 import { Appointment, AppointmentWithNames } from '@/types/appointment';
-import { CalendarDateTime, today } from '@internationalized/date';
+import { CalendarDate, today } from '@internationalized/date';
 import { Fragment, ReactNode, useEffect, useState, useTransition } from 'react';
 import { DateValue } from 'react-aria';
 import {
@@ -31,6 +31,7 @@ import { changeTitle } from '@/lib/features/title/title_slice';
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 import RefreshRounded from '@mui/icons-material/RefreshRounded';
 
+const CURRENCY = 'COP';
 
 interface IDashboardView {
    appointments: AppointmentWithNames[];
@@ -57,8 +58,6 @@ export default function DashboardView({
    appointments,
    patients,
 }: IDashboardView) {
-   console.log('Appointments in DashboardView:', appointments); // Debugging purposes
-   console.log('Patients in DashboardView:', patients); // Debugging purposes
    const dispatch = useAppDispatch();
 
    const [loading, startTransition] = useTransition();
@@ -73,13 +72,23 @@ export default function DashboardView({
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [dispatch]);
 
-   const minDate = new CalendarDateTime(2023, 11, 1);
+   const minDate = new CalendarDate(2023, 11, 1);
 
-   const [startDate, setStartDate] = useState<DateValue>(today(timezone));
+   const [startDate, setStartDate] = useState<DateValue>(() => {
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      return new CalendarDate(
+         oneMonthAgo.getFullYear(),
+         oneMonthAgo.getMonth() + 1,
+         oneMonthAgo.getDate()
+      );
+   });
 
-   const [endDate, setEndDate] = useState<DateValue>(today(timezone));
-
-
+   const [endDate, setEndDate] = useState<DateValue>(new CalendarDate(
+      today(timezone).year,
+      today(timezone).month,
+      today(timezone).day
+   ));
 
    function getAppointmentsFiltered() {
       return appointments.filter(({ appointment: { creation_date } }) => {
@@ -122,7 +131,7 @@ export default function DashboardView({
          let singleFound = false;
 
          appointments.some(({ appointment }) => {
-            if (appointment.patient_id === 1 && isPaid(appointment)) {
+            if (appointment.patient_id === user.id && isPaid(appointment)) {
                if (appointment.from_package) {
                   packageFound = true;
                } else {
@@ -358,7 +367,7 @@ export default function DashboardView({
                   Total de ventas registradas
                </h2>
                <p className="mb-5 text-center text-3xl">
-                  {formatPrice(groupedAppointments.totalSold, "COP")}
+                  {formatPrice(groupedAppointments.totalSold)}
                </p>
                <Line
                   options={{
@@ -428,7 +437,7 @@ export default function DashboardView({
                      labels,
                      datasets: [
                         {
-                           label: `Ventas (${"COP"})`,
+                           label: `Ventas (${CURRENCY})`,
                            data: groupedAppointments.data.map(group =>
                               group.prices.reduce((a, b) => a + b, 0),
                            ),
@@ -487,14 +496,13 @@ export default function DashboardView({
                                  <p className="w-full truncate">
                                     {formatPrice(
                                        sells > 0 ? earns / sells : 0,
-                                       "COP",
                                     )}
                                  </p>
                                  <p className="w-full truncate font-semibold">
                                     Total vendido
                                  </p>
                                  <p className="w-full truncate">
-                                    {formatPrice(earns, "COP")}
+                                    {formatPrice(earns)}
                                  </p>
                               </div>
                            </div>

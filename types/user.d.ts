@@ -1,6 +1,6 @@
 import { Service } from './service';
 
-export type Role = 'ADMINISTRATOR' | 'PATIENT' | 'RECEPTIONIST';
+export type Role = 'ADMINISTRATOR' | 'PATIENT' | 'RECEPTIONIST' | 'DOCTOR';
 export type Genre = 'MALE' | 'FEMALE' | 'OTHER';
 
 export interface NewUser {
@@ -8,15 +8,14 @@ export interface NewUser {
    names: string;
    last_names: string;
    phone: string;
-   address: string;
+   address?: string;
    email: string;
    profile_picture: string;
-   cognito_id: string;
+   cognito_id?: string;
    role: Role;
-   id?: number | undefined;
+   id?: number;
    identification?: string;
    identification_type?: number;
-   headquarter_id?: number;
    retired?: boolean;
    birth_date?: Date;
    genre?: Genre;
@@ -33,6 +32,8 @@ export interface NewUserOutline {
    role: string;
    phone: string;
    address?: string;
+   identification?: string;
+   identification_type?: number;
 }
 
 interface NewSchedule {
@@ -63,7 +64,7 @@ export interface User {
    names: string;
    last_names: string;
    phone: string;
-   address: string;
+   address?: string;
    email: string;
    profile_picture: string;
    cognito_id: string;
@@ -98,6 +99,7 @@ export interface FullFilledUser {
 export interface TherapistWithSchedule
    extends Omit<FullFilledUser, 'services'> {}
 
+   
 export interface UserService {
    id: number;
    user_id: number;
@@ -122,3 +124,10 @@ export interface HourRange {
    start_hour: string;
    end_hour: string;
 }
+
+export interface IdentificationType {
+  id: number;
+  value: string;
+}
+
+

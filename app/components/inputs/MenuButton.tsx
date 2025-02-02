@@ -101,7 +101,7 @@ function Menu({ width, ...props }: IMenu) {
                   ref={ref}
                   className="max-h-[40vh] overflow-auto"
                >
-                  {[...state.collection].map(item =>
+                  {Array.from(state.collection).map(item =>
                      item.type === 'section' ? (
                         <MenuSection
                            key={item.key}
@@ -121,7 +121,7 @@ function Menu({ width, ...props }: IMenu) {
             className="hidden max-h-[40vh] overflow-auto rounded-xl bg-white p-4 shadow-xl md:block"
             style={{ width }}
          >
-            {[...state.collection].map(item =>
+            {Array.from(state.collection).map(item =>
                item.type === 'section' ? (
                   <MenuSection key={item.key} section={item} state={state} />
                ) : (
@@ -158,7 +158,7 @@ function MenuSection({ section, state }: IMenuSection) {
          )}
          <li {...itemProps}>
             <ul {...groupProps}>
-               {[...section.childNodes].map(node => (
+               {Array.from(section.childNodes).map(node => (
                   <MenuItem key={node.key} item={node} state={state} />
                ))}
             </ul>

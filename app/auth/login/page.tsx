@@ -34,23 +34,6 @@ export default function Page() {
 
       setLoading?.(true);
 
-      try {
-         const { attributes } = await signIn({ email, password });
-
-         let user: User | undefined;
-         try {
-            user = (await getUserByCognitoId( attributes.sub)).data;
-         } catch (error) {
-            throw Error('Tu usuario no pertenece a esta clínica.');
-         }
-
-         dispatch(setUser(user));
-
-         router.push(clinicRoutes().admin_home);
-      } catch (error) {
-         setLoading?.(false);
-         await signOut();
-      }
    }
 
    return (
@@ -65,7 +48,6 @@ export default function Page() {
                resetPasswordUrl={clinicRoutes().clinic_resetPassword}
                error={error}
                password={password}
-               send={send}
                setPassword={setPassword}
                setUsername={setEmail}
                username={email}

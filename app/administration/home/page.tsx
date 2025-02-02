@@ -12,11 +12,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
       getAllPatients(),
       getAllAppointmentsWithNames(),
    ]);
-   console.log('Fetched Appointments:', appointments); // Debugging purposes
-   console.log('Fetched Patients:', patients); // Debugging purposes
+
    return (
       <DashboardView
-         appointments={appointments}
+         appointments={appointments.filter(
+            ({ appointment: { hidden } }) => !hidden,
+         )}
          patients={patients}
       />
    );

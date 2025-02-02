@@ -147,12 +147,13 @@ export default function PatientHeader() {
                   <MenuRoundedIcon />
                </Button>
             </div>
-            <div className="relative aspect-[30/28] w-48 max-w-[150px] justify-self-end lg:w-48 lg:justify-self-center">
+            <div className="relative aspect-[30/18]  lg:aspect-[30/22] w-48 max-w-[145px] justify-self-end lg:w-48 lg:justify-self-center">
                <Image
                   alt="clinic logo"
                   src={logo}
                   fill
-                  className="lg:ml-14 object-contain lg:scale-[1.2]"
+                  quality={90} 
+                  className="lg:ml-14 object-contain lg:scale-[1.1]"
                />
             </div>
             <div className="flex items-center gap-5">
@@ -205,21 +206,22 @@ export default function PatientHeader() {
 
          {hasBg && (
                      <>         
-                     <div className="relative w-auto h-56 lg:h-[620px] overflow-hidden my-10 lg:px-50 lg:m-10 lg:mx-24 flex items-center justify-between">
+                     <div className="relative w-auto h-56 lg:h-[620px] overflow-hidden my-5 lg:px-50 lg:m-8 lg:mx-4 flex items-center justify-between">
                      {/* Left Arrow */}
                      <button
-                        onClick={handlePrevBanner}
-                        className="bg-black bg-opacity-50 text-white p-0.5 lg:p-4 rounded-full mx-0.5 lg:mx-2"
-                     >
-                        &#9664;
-                     </button>
+                     onClick={handlePrevBanner}
+                     className="hidden md:flex bg-black bg-opacity-50 text-white p-0.5 lg:p-4 rounded-full mx-0.5 lg:mx-2"
+                  >
+                     &#9664;
+                  </button>
                   
                      {/* Banner Image */}
-                     <div className="relative w-full h-full transition-all duration-800 ease-in-out my-12 lg:my-12 lg:mx-40">
+                     <div className="relative w-full h-full transition-all duration-800 ease-in-out my-12 lg:my-4 lg:mx-10">
                         <Image
                            src={bannerImages[currentBannerIndex]}
                            alt="Banner"
                            fill
+                           quality={90} 
                            className="object-cover rounded-lg"
                         />
                      </div>
@@ -227,7 +229,7 @@ export default function PatientHeader() {
                      {/* Right Arrow */}
                      <button
                         onClick={handleNextBanner}
-                        className="bg-black bg-opacity-50 text-white p-0.5 lg:p-4 rounded-full mx-0.5 lg:mx-2"
+                        className="hidden md:flex bg-black bg-opacity-50 text-white p-0.5 lg:p-4 rounded-full mx-0.5 lg:mx-2"
                      >
                         &#9654;
                      </button>

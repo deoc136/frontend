@@ -1,9 +1,5 @@
 /*
-import {
-   AppointmentAssistance,
-   AppointmentState,
-   PaymentMethod,
-} from '@/types/appointment';
+
 import { Catalog } from '@/types/catalog';
 import { Clinic } from '@/types/clinic';
 import { Currency } from '@/types/currency';
@@ -12,7 +8,12 @@ import { Dispatch, SetStateAction } from 'react';
 import { SafeParseError } from 'zod';
 */
 import es from '../dictionaries/es.json';
-
+import {
+   AppointmentAssistance,
+   AppointmentState,
+   PaymentMethod,
+} from '@/types/appointment';
+import { Genre, Role } from '@/types/user';
 export function makeNegativeNumberZero(num: number) {
    return num < 0 ? 0 : num;
 }
@@ -44,10 +45,10 @@ export function isSameDay(d1: Date, d2: Date) {
    );
 }
 
-export function formatPrice(price: number, currency: string | undefined) {
+export function formatPrice(price: number) {
    return new Intl.NumberFormat(undefined, {
       style: 'currency',
-      currency: currency,
+      currency: 'COP',
    }).format(price);
 }
 
@@ -81,6 +82,61 @@ export function resetDateTime(date: Date) {
    return date;
 }
 
+export function cutFullName(names: string, lastNames: string) {
+   return `${names.split(' ').at(0)} ${lastNames.split(' ').at(0)}`;
+}
+
+export function translatePaymentMethod(genre: PaymentMethod, dic = es) {
+   switch (genre) {
+      case 'CARD':
+         return dic.texts.payment_methods.card;
+      case 'CASH':
+         return dic.texts.payment_methods.cash;
+      case 'ONLINE':
+         return dic.texts.payment_methods.online;
+   }
+}
+
+
+
+export function translateAppointmentState(state: AppointmentState, dic = es) {
+   switch (state) {
+      case 'CANCELED':
+         return dic.texts.appointments.canceled;
+      case 'CLOSED':
+         return dic.texts.appointments.closed;
+      case 'PENDING':
+         return dic.texts.appointments.pending;
+      case 'TO_PAY':
+         return dic.texts.appointments.to_pay;
+   }
+}
+
+
+export function translateRole(role: Role, dic = es) {
+   switch (role) {
+      case 'ADMINISTRATOR':
+         return dic.texts.roles.admin;
+      case 'RECEPTIONIST':
+         return dic.texts.roles.receptionist;
+      case 'PATIENT':
+         return dic.texts.roles.patient;
+      case 'DOCTOR':
+         return dic.texts.roles.therapist;
+   }
+}
+
+export function translateAppointmentAssistance(
+   state?: AppointmentAssistance,
+   dic = es,
+) {
+   switch (state) {
+      case 'ATTENDED':
+         return dic.texts.appointments.attended;
+      default:
+         return dic.texts.appointments.missed;
+   }
+}
 
 /*
 
@@ -100,10 +156,6 @@ export function groupBy<T>(collection: T[], key: keyof T) {
       return previous;
    }, {} as any); // tried to figure this out, help!!!!!
    return groupedResult;
-}
-
-export function cutFullName(names: string, lastNames: string) {
-   return `${names.split(' ').at(0)} ${lastNames.split(' ').at(0)}`;
 }
 
 export function convertErrorIntoString<T>(error: SafeParseError<T>) {
@@ -214,66 +266,6 @@ export function downloadURI(uri: string, name: string) {
    document.body.appendChild(link);
    link.click();
    document.body.removeChild(link);
-}
-
-export function translateRole(role: Role, dic = es) {
-   switch (role) {
-      case 'ADMINISTRATOR':
-         return dic.texts.roles.admin;
-      case 'RECEPTIONIST':
-         return dic.texts.roles.receptionist;
-      case 'PATIENT':
-         return dic.texts.roles.patient;
-      case 'THERAPIST':
-         return dic.texts.roles.therapist;
-   }
-}
-
-export function translateGenre(genre: Genre, dic = es) {
-   switch (genre) {
-      case 'FEMALE':
-         return dic.texts.genres.female;
-      case 'MALE':
-         return dic.texts.genres.male;
-      case 'OTHER':
-         return dic.texts.genres.other;
-   }
-}
-
-export function translatePaymentMethod(genre: PaymentMethod, dic = es) {
-   switch (genre) {
-      case 'CARD':
-         return dic.texts.payment_methods.card;
-      case 'CASH':
-         return dic.texts.payment_methods.cash;
-      case 'ONLINE':
-         return dic.texts.payment_methods.online;
-   }
-}
-
-export function translateAppointmentState(state: AppointmentState, dic = es) {
-   switch (state) {
-      case 'CANCELED':
-         return dic.texts.appointments.canceled;
-      case 'CLOSED':
-         return dic.texts.appointments.closed;
-      case 'PENDING':
-         return dic.texts.appointments.pending;
-      case 'TO_PAY':
-         return dic.texts.appointments.to_pay;
-   }
-}
-
-export function translateAppointmentAssistance(
-   state?: AppointmentAssistance,
-   dic = es,
-) {
-   switch (state) {
-      case 'ATTENDED':
-         return dic.texts.appointments.attended;
-      default:
-         return dic.texts.appointments.missed;
-   }
 }
 
 export function convertDaysIntoString(

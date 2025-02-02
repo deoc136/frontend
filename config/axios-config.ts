@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
-// Configura la URL base para Axios
-export const apiUrl = 'http://localhost:5000/';
+// Force production API URL
+export const apiUrl = 'https://api.esteticadcc.com/';//https://api.esteticadcc.com/ or http://localhost:5000/
 
 export enum Side {
   client,
@@ -9,8 +9,8 @@ export enum Side {
 }
 
 export function applyAxiosConfig(side: Side) {
-  // Asegúrate de que la URL base esté correctamente configurada
   axios.defaults.baseURL = apiUrl;
+  console.log('Axios configured with baseURL:', apiUrl);
 
   axios.interceptors.request.use(
     request => {

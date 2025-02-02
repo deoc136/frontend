@@ -25,8 +25,7 @@ export default function PatientMobileSidebar({
    isOpen,
    setIsOpen,
 }: IPatientMobileSidebar) {
-   const clinic = useAppSelector(store => store.clinic);
-   const user = useAppSelector(store => store.user);
+
 
    const isLg = useMediaQuery('(min-width:1024px)');
 
@@ -53,53 +52,19 @@ export default function PatientMobileSidebar({
                   >
                      <CloseRoundedIcon className="!fill-black" />
                   </Button>
-                  {!!user ? (
+                  
                      <>
-                        <div className="grid grid-cols-[auto_1fr] gap-4">
-                           <div className="relative aspect-square h-max w-14">
-                              <Image
-                                 src={
-                                    user.profile_picture.length
-                                       ? user.profile_picture
-                                       : '/default_profile_picture.svg'
-                                 }
-                                 className="rounded-full object-cover object-center"
-                                 alt="patient profile picture"
-                                 fill
-                              />
-                           </div>
-                           <div className="flex flex-col justify-between">
-                              <p className="w-full truncate font-semibold">
-                                 {user.names} {user.last_names}
-                              </p>
-                              <p className="text-sm text-on-background-text">
-                                 {user.email}
-                              </p>
-                           </div>
-                        </div>
-                        <Button
-                           href={
-                              clinicRoutes(clinic.slug)
-                                 .patient_profile_personal_data
-                           }
-                           variant={Variant.secondary}
-                        >
-                           Ver perfil
-                        </Button>
-                     </>
-                  ) : (
-                     <>
-                        <Button href={clinicRoutes(clinic.slug).login}>
+                        <Button href={clinicRoutes().login}>
                            Iniciar sesión
                         </Button>
                         <Button
-                           href={clinicRoutes(clinic.slug).register}
+                           href={clinicRoutes().register}
                            variant={Variant.secondary}
                         >
                            Registrarse
                         </Button>
                      </>
-                  )}
+                  
                </div>
                <hr className="border-on-background-text" />
                <Sidebar
@@ -109,20 +74,20 @@ export default function PatientMobileSidebar({
                      <div className="flex h-full items-end">
                         <SignOutButton
                            className="!h-max !bg-transparent !text-error"
-                           route={clinicRoutes(clinic.slug).login}
+                           route={clinicRoutes().login}
                         />
                      </div>
                   }
                   items={[ListBox]}
                >
-                  <Item textValue={clinicRoutes(clinic.slug).patient_services}>
+                  <Item textValue={clinicRoutes().patient_services}>
                      Servicios
                   </Item>
-                  {!!user ? (
+                  
                      <Section title="Mis citas">
                         <Item
                            textValue={
-                              clinicRoutes(clinic.slug)
+                              clinicRoutes()
                                  .patient_appointments_actives
                            }
                         >
@@ -130,16 +95,13 @@ export default function PatientMobileSidebar({
                         </Item>
                         <Item
                            textValue={
-                              clinicRoutes(clinic.slug)
+                              clinicRoutes()
                                  .patient_appointments_history
                            }
                         >
                            Historial de citas
                         </Item>
                      </Section>
-                  ) : (
-                     (true as any)
-                  )}
                </Sidebar>
             </Dialog>
          )}

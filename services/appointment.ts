@@ -28,18 +28,13 @@ async function cancelReminder(data: ReminderInputType) {
    } catch (error) {}
 }
 */
-export async function getAppointmentById(slug: string, id: string) {
+export async function getAppointmentById(id: string) {
    return await axios.get<Appointment>(`/appointment/get/${id}`, {
-      headers: {
-         slug,
-      },
    });
 }
 
 export async function getAllAppointments() {
-   return await axios.get<Appointment[]>(`/appointment/getAll`, {
-
-   });
+   return await axios.get<Appointment[]>(`/appointment/getAll`);
 }
 
 export async function getAllAppointmentsByPatientId(slug: string, id: string) {
@@ -69,57 +64,96 @@ export async function getAllAppointmentsByPatientIdWithRating(
 
 export async function getAllAppointmentsWithNames() {
    return await axios.get<AppointmentWithNames[]>(
-      `/appointment/getAllWithNames`,
-      {
-      },
+      `/appointment/getAllWithNames`
    );
 }
 
-export async function createAppointment(
-   slug: string,
-   appointment: NewAppointment,
-) {
-   const {
-      data: { id },
-   } = await axios.post<InsertMethodResponse>(
-      '/appointment/create',
-      appointment,
-      {
-         headers: {
-            slug,
-         },
-      },
-   );
+export async function createAppointment(appointment: NewAppointment) {
+   try {
+      console.log('Creating appointment with data:', appointment);
+      console.log('Using API URL:', axios.defaults.baseURL);
+      
+      const response = await axios.post<InsertMethodResponse>(
+         '/appointment/create',
+         appointment,
+         {
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            validateStatus: (status) => status < 500, // Accept all responses < 500
+         }
+      );
 
-   //await createReminder({ slug, appointmentId: id });
-
-   return {
-      id,
-   };
+      console.log('Appointment creation response:', response.data);
+      return { id: response.data.id };
+   } catch (error: unknown) {
+      if (error instanceof Error) {
+         console.error('Appointment creation error:', {
+            message: error.message,
+            response: (error as any).response?.data,
+            status: (error as any).response?.status,
+            config: (error as any).config
+         });
+      }
+      
+      if (axios.isAxiosError(error)) {
+         if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            throw new Error(`Server error: ${error.response.data.error || error.message}`);
+         } else if (error.request) {
+            // The request was made but no response was received
+            throw new Error('No response received from server. Please check your connection.');
+         }
+      }
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error('Failed to create appointment: ' + errorMessage);
+   }
 }
 
-export async function createAppointmentWithPatient(
-   slug: string,
-   data: {
-      user: NewUser;
-      appointment: NewAppointment;
-   },
-) {
-   const {
-      data: { id },
-   } = await axios.post<InsertMethodResponse>(
-      '/appointment/createWithPatient',
-      data,
-      {
-         headers: {
-            slug,
-         },
-      },
-   );
+export async function createAppointmentWithPatient(data: {
+   user: NewUser;
+   appointment: NewAppointment;
+}) {
+   try {
+      console.log('Creating appointment with data:', {
+         user: { ...data.user, email: data.user.email || 'not provided' },
+         appointment: data.appointment
+      });
 
-   //await createReminder({ slug, appointmentId: id });
+      // Use the configured axios instance
+      const response = await axios.post('/appointment/createWithPatient', data, {
+         validateStatus: (status) => status < 500, // Accept all responses < 500
+      });
 
-   return { id };
+      console.log('Appointment creation response:', response.data);
+      return response.data;
+   } catch (error: unknown) {
+      // Detailed error logging
+      if (error instanceof Error) {
+         console.error('Appointment creation error:', {
+            message: error.message,
+            response: (error as any).response?.data,
+            status: (error as any).response?.status,
+            config: (error as any).config
+         });
+      }
+      
+      if (axios.isAxiosError(error)) {
+         if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            throw new Error(`Server error: ${error.response.data.error || error.message}`);
+         } else if (error.request) {
+            // The request was made but no response was received
+            throw new Error('No response received from server. Please check your connection.');
+         }
+      }
+      
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error('Failed to create appointment: ' + errorMessage);
+   }
 }
 
 export async function createMultipleWithPatient(
@@ -150,14 +184,9 @@ export async function createMultipleWithPatient(
    return { id };
 }
 
-export async function editAppointment(slug: string, appointment: Appointment) {
+export async function editAppointment( appointment: Appointment) {
    const response = await axios.put('/appointment/edit', appointment, {
-      headers: {
-         slug,
-      },
    });
-
-   //editReminder({ slug, appointmentId: appointment.id });
 
    return response;
 }

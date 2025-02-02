@@ -44,6 +44,7 @@ export default function DetailsView({ service, packages }: IDetailsView) {
                   className="object-cover object-center"
                   fill
                   alt="service image"
+                  quality={90} 
                   src={service.picture_url?.length ? service.picture_url : '/default_service_image.png'}
                />
             </div>
