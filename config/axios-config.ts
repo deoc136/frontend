@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 // Force production API URL
-export const apiUrl = 'https://api.esteticadcc.com/';//https://api.esteticadcc.com/ or http://localhost:5000/
+export const apiUrl = process.env.NEXT_PUBLIC_API_URL ;//https://api.esteticadcc.com/ or http://localhost:5000/
 
 export enum Side {
   client,
