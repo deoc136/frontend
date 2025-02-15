@@ -6,7 +6,6 @@ import { headers } from 'next/headers';
 import { getUserByCognitoId } from '@/services/user';
 import { clinicRoutes } from '@/lib/routes';
 import { redirect } from 'next/navigation';
-import RevalidationClientSide from './components/RevalidationClientSide';
 import LayoutChildrenWrapper from './components/LayoutChildrenWrapper';
 
 interface ILayout extends PropsWithChildren<unknown> {
