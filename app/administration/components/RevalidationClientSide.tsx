@@ -9,12 +9,10 @@ import { useEffect } from 'react';
 
 interface IRevalidationClientSide {
    route: GlobalRoute;
-   slug: string;
 }
 
 export default function RevalidationClientSide({
    route,
-   slug,
 }: IRevalidationClientSide) {
    const router = useRouter();
 
@@ -26,7 +24,7 @@ export default function RevalidationClientSide({
             const [
                { data: user },,
             ] = await Promise.all([
-               getUserByCognitoId(slug),
+               getUserByCognitoId(),
             ]);
 
             if (

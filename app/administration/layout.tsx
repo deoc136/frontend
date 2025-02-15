@@ -10,12 +10,10 @@ import RevalidationClientSide from './components/RevalidationClientSide';
 import LayoutChildrenWrapper from './components/LayoutChildrenWrapper';
 
 interface ILayout extends PropsWithChildren<unknown> {
-   params: {
-      slug: string;
-   };
+
 }
 
-export default async function Layout({ children, params }: ILayout) {
+export default async function Layout({ children }: ILayout) {
    /*const SSR = withSSRContext({
       req: { headers: { cookie: headers().get('cookie') } },
    });
