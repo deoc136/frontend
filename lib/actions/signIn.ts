@@ -1,5 +1,5 @@
 import { CognitoUser } from '@/types/amplify';
-import { Auth } from 'aws-amplify';
+import { signIn as amplifySignIn, SignInInput } from '@aws-amplify/auth';
 
 type SignInParameters = {
    email: string;
@@ -8,9 +8,12 @@ type SignInParameters = {
 
 export async function signIn({ email, password }: SignInParameters) {
    try {
-      const user = await Auth.signIn(email, password)
-      return user as CognitoUser;
-      console.log("user Activated");
+      const signInInput: SignInInput = {
+         username: email,
+         password,
+      };
+      const result = await amplifySignIn(signInInput);
+      return result as unknown as CognitoUser;
    } catch (error) {
       console.error('error signing in', error);
       throw error;

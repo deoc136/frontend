@@ -5,7 +5,7 @@ import { User } from '@/types/user';
 import BasicLogin from '@/components/shared/auth/BasicLogin';
 import { signIn } from '@/lib/actions/signIn';
 import { signOut } from '@/lib/actions/signOut';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux-hooks';
+import { useAppDispatch } from '@/lib/hooks/redux-hooks';
 import { SORoutes, clinicRoutes } from '@/lib/routes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -13,27 +13,31 @@ import { SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import { setUser } from '@/lib/features/user/user_slice';
 import useDictionary from '@/lib/hooks/useDictionary';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 export default function Page() {
    const dic = useDictionary();
-
-
    const dispatch = useAppDispatch();
-
    const [password, setPassword] = useState('');
    const [email, setEmail] = useState('');
-
    const [error, setError] = useState<string>();
-
    const router = useRouter();
 
-   async function send(setLoading?: (value: SetStateAction<boolean>) => void) {
+   async function handleSubmit(setLoading: (value: SetStateAction<boolean>) => void) {
       setError(undefined);
-
-
-      setLoading?.(true);
-
+      try {
+         setLoading(true);
+         const user = await signIn({ email, password });
+         if (user) {
+            const response = await getUserByCognitoId();
+            dispatch(setUser(response.data));
+            router.push(SORoutes.softwareOwner);
+         }
+      } catch (err: any) {
+         setError(err.message || 'An error occurred during sign in');
+      } finally {
+         setLoading(false);
+      }
    }
 
    return (
@@ -51,8 +55,8 @@ export default function Page() {
                setPassword={setPassword}
                setUsername={setEmail}
                username={email}
+               onSubmit={handleSubmit}
             />
-
          </div>
       </>
    );

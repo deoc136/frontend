@@ -18,6 +18,7 @@ interface IBasicLogin {
    setPassword: Dispatch<SetStateAction<string>>;
    resetPasswordUrl: string;
    closerButton?: boolean;
+   onSubmit?: (setLoading: (value: SetStateAction<boolean>) => void) => Promise<void>;
 }
 
 export default function BasicLogin({
@@ -28,24 +29,17 @@ export default function BasicLogin({
    setUsername,
    username,
    closerButton,
+   onSubmit
 }: IBasicLogin) {
    const dic = useDictionary();
    const router = useRouter(); 
-
-   const handleLogin = () => {
-      setLoading(true);
-      if (password === 'dccapp_2024') {
-         const adminHomeRoute = clinicRoutes().admin_home;  // Get the admin home route
-         router.push(adminHomeRoute); // Navigate to the desired page
-      } else {
-         // Handle incorrect password case, show error, etc.
-         setLoading(false);
-         alert('Incorrect password'); // You can replace this with better error handling
-      }
-   };
-
    const [loading, setLoading] = useState(false);
 
+   const handleLogin = async () => {
+      if (onSubmit) {
+         await onSubmit(setLoading);
+      }
+   };
 
    return (
       <div className="text-sm sm:text-base">
@@ -72,8 +66,7 @@ export default function BasicLogin({
          </div>
          <Button
             variant={Variant.primary}
-            //onPress={() => send(setLoading)}
-            onPress={handleLogin} 
+            onPress={handleLogin}
             isDisabled={!(username.length && password.length) || loading}
             className={`${closerButton ? 'mt-5' : 'mt-16 sm:mt-12'}`}
          >
