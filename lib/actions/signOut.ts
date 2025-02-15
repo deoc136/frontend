@@ -1,9 +1,9 @@
-import { Auth } from 'aws-amplify';
+import { signOut as amplifySignOut } from '@aws-amplify/auth';
 
 export async function signOut() {
    try {
-      await Auth.signOut();
+      await amplifySignOut();
    } catch (error) {
-      console.error('error signing in', error);
+      console.error('error signing out', error);
    }
 }
