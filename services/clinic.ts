@@ -8,10 +8,6 @@ export async function getClinic() {
    return await axios.get<ClinicPopulated>(`/clinic/getBySlug/1`);
 }
 
-export async function getClinicBySlug(slug: string) {
-   return await axios.get<ClinicPopulated>(`/clinic/getBySlug/${slug}`);
-}
-
 export async function getAllClinicsPopulated() {
    return await axios.get<ClinicPopulated[]>(`/clinic/getAllPopulated`);
 }
