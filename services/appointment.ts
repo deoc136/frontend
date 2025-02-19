@@ -37,27 +37,19 @@ export async function getAllAppointments() {
    return await axios.get<Appointment[]>(`/appointment/getAll`);
 }
 
-export async function getAllAppointmentsByPatientId(slug: string, id: string) {
+export async function getAllAppointmentsByPatientId( id: string) {
    return await axios.get<Appointment[]>(
       `/appointment/getAllByPatientId/${id}`,
-      {
-         headers: {
-            slug,
-         },
-      },
+      {},
    );
 }
 
 export async function getAllAppointmentsByPatientIdWithRating(
-   slug: string,
    id: string,
 ) {
    return await axios.get<AppointmentWithRating[]>(
       `/appointment/getAllByPatientIdWithRating/${id}`,
       {
-         headers: {
-            slug,
-         },
       },
    );
 }

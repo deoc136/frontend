@@ -89,6 +89,6 @@ export async function getAllUsersByRole(role: Role) {
    return axios.get<User[]>(`/user/getAllByRole/${role}`);
 }
 
-export async function getUserByCognitoId() {
-   return axios.get<User>(`/user/getByCognitoId/`);
+export async function getUserByCognitoId(cognitoId: string) {
+   return axios.get<User>(`/user/getByCognitoId/${cognitoId}`);
 }

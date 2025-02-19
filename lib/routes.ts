@@ -193,7 +193,7 @@ export function receptionist_routes() {
 }
 
 export function patient_routes() {
-   const patient = `/patient` as const;
+   const patient = `/patient/` as const;
 
    const patient_complete_account = `${patient}/complete-account` as const;
 

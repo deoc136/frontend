@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-     "build:prod": "cross-env NODE_ENV=production next build",
+    "build:prod": "cross-env NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.5.0",
     "@aws-amplify/auth": "^6.0.0",
+    "@aws-amplify/ui-react": "^6.9.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@fullcalendar/core": "^6.1.15",
@@ -32,7 +32,7 @@
     "@spectrum-icons/workflow": "^4.2.14",
     "@spectrum-web-components/icons-workflow": "^0.48.0",
     "autoprefixer": "^10.4.20",
-    "aws-amplify": "^6.0.0",
+    "aws-amplify": "^6.13.0",
     "axios": "^1.7.7",
     "chart.js": "^4.4.4",
     "next": "14.2.7",

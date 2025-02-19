@@ -94,7 +94,7 @@ export default function PatientMobileSidebar({
                            Citas agendadas
                         </Item>
                         <Item
-                           textValue={
+                           href={
                               clinicRoutes()
                                  .patient_appointments_history
                            }

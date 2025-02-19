@@ -171,14 +171,20 @@ export default function PatientHeader() {
                   ))}
                </Select>
                <Select
-                  // aria-label="patients header appointments selector"
-                  className={`hidden rounded-none bg-transparent !py-3 font-normal !text-on-background-text !shadow-none lg:flex border-b-4 border-secondary font-semibold !text-secondary`}
+                  className={`hidden rounded-none bg-transparent !py-3 font-normal !text-on-background-text !shadow-none lg:flex ${
+                     typeCondition === Route.appointments &&
+                     'border-b-4 border-secondary font-semibold !text-secondary'
+                  }`}
                   triggerContent={dic.texts.appointments.my_appointments}
-
-                  selectedKey={null}
+                  onSelectionChange={val => {
+                     if (!val) return;
+                     console.log('Selected route:', val.toString());
+                     router.push(val.toString());
+                  }}
+                  selectedKey={pathname}
                >
                   <Item
-
+                     key={clinicRoutes().patient_appointments_actives}
                      textValue={dic.texts.appointments.active_appointments}
                   >
                      <div className="w-max px-8 py-3">
@@ -186,7 +192,7 @@ export default function PatientHeader() {
                      </div>
                   </Item>
                   <Item
-
+                     key={clinicRoutes().patient_appointments_history}
                      textValue={dic.texts.appointments.appointments_history}
                   >
                      <div className="w-max px-8 py-3">
@@ -196,7 +202,7 @@ export default function PatientHeader() {
                </Select>
                <Button
                   className={`mr-24 hidden !h-full w-max rounded-none bg-transparent !py-3 font-normal !text-on-background-text !shadow-none lg:block`}
-                 
+                  href={clinicRoutes().patient_services}
                >
                   {dic.texts.services.services}
                </Button>
