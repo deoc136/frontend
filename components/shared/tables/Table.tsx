@@ -14,6 +14,7 @@ import TableCheckboxCell from './TableCheckboxCell';
 
 interface ITable extends AriaTableProps<object>, TableStateProps<object> {
    className: string;
+   'aria-label'?: string;
 }
 
 type childNodes = Iterable<Node<object>> | undefined;
