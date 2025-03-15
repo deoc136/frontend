@@ -166,7 +166,7 @@ function AppointmentRow({
                </p>
             </Link>
             {Number(appointment.ratings) > 0 ? (
-               <p className="font-semibold p-basic">
+               <p className="font-semibold p-basic ml-1">
                   ¡{dic.texts.appointments.rated}!
                </p>
             ) : (
