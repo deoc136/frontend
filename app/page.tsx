@@ -4,7 +4,6 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { clinicRoutes } from '@/lib/routes';
-import type { Metadata } from 'next';
 import ServicesList from './patient/services/views/ServicesList';
 import { Service } from '@/types/service';
 import { getAllServices } from '@/services/service';
@@ -13,9 +12,6 @@ interface IServicesList {
   services: Service[];
 }
 
-export const metadata: Metadata = {
-  title: 'APP DCC',
-};
 
 export default function Home() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
