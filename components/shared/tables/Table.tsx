@@ -12,7 +12,7 @@ import TableCell from './TableCell';
 import TableSelectAllCell from './TableSelectAllCell';
 import TableCheckboxCell from './TableCheckboxCell';
 
-interface ITable extends AriaTableProps<object>, TableStateProps<object> {
+interface ITable extends AriaTableProps, TableStateProps<object> {
    className: string;
    'aria-label'?: string;
 }
