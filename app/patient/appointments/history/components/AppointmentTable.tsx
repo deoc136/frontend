@@ -89,7 +89,7 @@ export default function AppointmentsHistoryTable({
                   </Cell>
                   <Cell>
                      <Link
-                        className="text-secondary underline underline-offset-2"
+                        className="text-secondary underline underline-offset-2 ml-1"
                         href={
                            clinicRoutes().patient_appointments_id(
                               appointment.id,
