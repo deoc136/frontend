@@ -255,25 +255,11 @@ function Buttons({
                   variant={Variant.outlined}
                   onPress={() =>
                      allowEdition
-                        ? router.push(
-                             clinicRoutes().patient_appointments_id(
-                                appointment.id,
-                             ).edit,
-                          )
+                        ? window.open('https://api.whatsapp.com/send?phone=573105345062', '_blank')
                         : setDisabledOpen(true)
                   }
                >
                   <RestartAltRoundedIcon /> {dic.texts.flows.change_date}
-               </Button>
-               <Button
-                  className="!h-max !py-2"
-                  isDisabled={appointment.from_package}
-                  variant={Variant.secondary}
-                  onPress={() =>
-                     allowEdition ? setCancelOpen(true) : setDisabledOpen(true)
-                  }
-               >
-                  {dic.texts.flows.cancel_appointment}
                </Button>
             </>
          )}

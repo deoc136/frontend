@@ -161,7 +161,7 @@ function AppointmentRow({
                         }).format(date),
                      )}{' '}
                      {date.getDate()} / {date.getFullYear()}{' '}
-                     { appointment.hour.toString()} : {appointment.minute.toString()}
+                     { appointment.hour.toString()}:{appointment.minute?.toString().padStart(2, '0')}
                   </span>
                </p>
             </Link>

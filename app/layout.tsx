@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Lato, Poppins } from 'next/font/google';
-import { Providers } from '@/app/provider';
+import Provider from '@/app/provider';
 import { Side, applyAxiosConfig } from '@/config/axios-config';
 import PatientHeader from './patient/components/PatientHeader';
 import PatientFooter from './patient/components/PatientFooter';
@@ -52,7 +52,7 @@ export default async function RootLayout({
                   `,
                }}
             />
-            <Providers>
+            <Provider>
                <main className="relative">
                   <div
                      id="patient-body"
@@ -65,7 +65,7 @@ export default async function RootLayout({
                      <PatientFooter />
                   </div>
                </main>
-            </Providers>
+            </Provider>
          </body>
       </html>
    );

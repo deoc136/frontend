@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Select } from '@/app/components/inputs/Select';
 import { GlobalRoute, clinicRoutes } from '@/lib/routes';
 import { Item } from '@react-stately/collections';
+import PatientMobileSidebar from './PatientMobileSidebar';
 //import LoginModal from './LoginModal';
 //import PatientMobileSidebar from './PatientMobileSidebar';//To FIX
 import Card from '@/app/components/shared/cards/Card';
@@ -130,15 +131,14 @@ export default function PatientHeader() {
    const title = value.split('/').at(-1);
    return (
       <>
-      {/*}
+      
          <PatientMobileSidebar
             setIsOpen={setIsSideMenuOpen}
             isOpen={isSideMenuOpen}
          />
-         */}
-
+         
          <header className="sticky top-0 z-10 flex w-full grid-cols-4 items-center justify-between bg-foundation shadow lg:grid-cols-2">
-            <div className="lg:hidden">
+            <div className="lg:hidden ml-4">
                <Button
                   aria-label="menu button"
                   className="w-max bg-transparent !p-0 !text-on-background-light"

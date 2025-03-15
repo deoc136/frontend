@@ -91,6 +91,7 @@ export default function AppointmentsList({
                            key={i}
                            appointment={appointment}
                            hour={appointment.hour}
+                           minute={appointment.minute}
                            service={services.find(
                               ({ id }) => id === appointment.service_id,
                            )}
@@ -116,6 +117,7 @@ export default function AppointmentsList({
 
 interface IAppointmentRow {
    hour?: number;
+   minute?: number;
    appointment?: Appointment;
    therapist?: User;
    service?: Service;
@@ -126,6 +128,7 @@ function AppointmentRow({
    therapist,
    hour,
    service,
+   minute,
 }: IAppointmentRow) {
    const dic = useDictionary();
 
@@ -153,7 +156,7 @@ function AppointmentRow({
                      / {date.getFullYear().toString().slice(2)}
                   </p>
                   <p className="text-3xl font-semibold">{date.getDate()}</p>
-                  <p>{hour?.toString()}</p>
+                  <p>{hour?.toString()}:{minute?.toString().padStart(2, '0')}</p>
                </div>
                <div className="grid justify-between">
                   <div>
@@ -180,7 +183,7 @@ function AppointmentRow({
                      weekday: 'long',
                   }).format(date)}
                </p>
-               <p>{hour?.toString()}</p>
+               <p>{hour?.toString()}:{minute?.toString().padStart(2, '0')}</p>
             </div>
             <div className="grid gap-3">
                <div className="flex justify-between">

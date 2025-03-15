@@ -1,20 +1,16 @@
 'use client';
 
-import { store } from '../lib/store';
-import { Provider } from 'react-redux';
-import { Side, applyAxiosConfig } from '@/config/axios-config';
-import { useRef } from 'react';
+import { store } from '@/lib/store';
+import { Provider as ReduxProvider } from 'react-redux';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
-
-export function Providers({ children }: { children: React.ReactNode }) {
-   const isLoaded = useRef(false);
-
-   !isLoaded.current &&
-      (() => {
-         applyAxiosConfig(Side.client);
-
-         isLoaded.current = true;
-      })();
-
-   return <Provider store={store}>{children}</Provider>;
+export default function Provider({ children }: { children: React.ReactNode }) {
+  return (
+    <ReduxProvider store={store}>
+      <Authenticator.Provider>
+        {children}
+      </Authenticator.Provider>
+    </ReduxProvider>
+  );
 }
