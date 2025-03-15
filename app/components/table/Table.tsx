@@ -12,9 +12,11 @@ import TableCell from './TableCell';
 import TableSelectAllCell from './TableSelectAllCell';
 import TableCheckboxCell from './TableCheckboxCell';
 
-interface ITable<T extends object> extends AriaTableProps, TableStateProps<T> {
+interface ITable<T extends object> extends AriaTableProps<T>, TableStateProps<T> {
    className: string;
+   'aria-label'?: string;
 }
+
 
 type childNodes = Iterable<Node<object>> | undefined;
 
