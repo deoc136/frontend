@@ -57,7 +57,7 @@ function AuthenticatedContent({ signOut, user }: AuthenticatedContentProps) {
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <h1 className="mb-6 text-2xl font-bold">¡Inicio de sesión exitoso!</h1>
-      <p className="mb-4">Redireccionando a tu cuenta...</p>
+      <p className="mb-5">Redireccionando a tu cuenta...</p>
       <button 
         onClick={() => signOut && signOut()}
         className="rounded bg-primary px-4 py-2 text-white hover:bg-primary/90"
