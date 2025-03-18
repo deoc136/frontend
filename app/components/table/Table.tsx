@@ -23,7 +23,7 @@ interface ITable<T extends object> {
    onSortChange?: (descriptor: { column?: Key }) => void;
 }
 
-type TableProps<T extends object> = ITable<T> & Omit<AriaTableProps, keyof ITable<T>> & TableStateProps<T>;
+type TableProps<T extends object> = ITable<T> & Omit<AriaTableProps<T>, keyof ITable<T>> & TableStateProps<T>;
 
 type childNodes = Iterable<GridNode<unknown>> | undefined;
 
