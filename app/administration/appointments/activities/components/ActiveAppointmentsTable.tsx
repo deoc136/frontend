@@ -140,7 +140,7 @@ function SeeMoreButton({ id }: { id: number }) {
          trigger={<MoreVertRoundedIcon className="!fill-on-background-text" />}
       >
          <Dialog className="rounded">
-            <ListBox className="right-0 !p-0 !py-2 shadow-xl">
+            <ListBox className="right-0 ml-0 !p-0 !py-2 shadow-xl">
                <Item textValue="Editar">
                   <Link href={`/appointments/${id}/edit`}>
                      <div className="w-full py-3 pl-8">Editar</div>
