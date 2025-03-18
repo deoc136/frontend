@@ -89,17 +89,26 @@ export async function getAllUsersByRole(role: Role) {
    return axios.get<User[]>(`/user/getAllByRole/${role}`);
 }
 
-export async function getUserByCognitoId(cognitoId: string) {
+export async function getUserByCognitoId(cognitoId: string, useDirectUrl = false) {
    console.log(`[USER SERVICE] Requesting user with Cognito ID: ${cognitoId}`);
    const requestUrl = `/user/getByCognitoId/${cognitoId}`;
    console.log(`[USER SERVICE] Full request URL: ${requestUrl}`);
    console.log(`[USER SERVICE] Axios baseURL: ${axios.defaults.baseURL || 'Not set'}`);
    
    try {
-      console.log(`[USER SERVICE] Sending request to: ${axios.defaults.baseURL || ''}${requestUrl}`);
-      const response = await axios.get<User>(requestUrl);
-      console.log(`[USER SERVICE] Request successful, status: ${response.status}`);
-      return response;
+      if (useDirectUrl) {
+         // Use direct URL to bypass baseURL configuration issues
+         const directUrl = `http://localhost:5000/user/getByCognitoId/${cognitoId}`;
+         console.log(`[USER SERVICE] Using direct URL: ${directUrl}`);
+         const response = await axios.get<User>(directUrl);
+         console.log(`[USER SERVICE] Direct request successful, status: ${response.status}`);
+         return response;
+      } else {
+         console.log(`[USER SERVICE] Sending request to: ${axios.defaults.baseURL || ''}${requestUrl}`);
+         const response = await axios.get<User>(requestUrl);
+         console.log(`[USER SERVICE] Request successful, status: ${response.status}`);
+         return response;
+      }
    } catch (error: any) {
       console.error(`[USER SERVICE] Error fetching user with Cognito ID: ${cognitoId}`);
       console.error(`[USER SERVICE] Error details:`, {

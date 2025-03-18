@@ -15,12 +15,12 @@ const configureAmplify = () => {
   if (!process.env.NEXT_PUBLIC_USER_POOL_ID || 
       !process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID || 
       !process.env.NEXT_PUBLIC_AWS_REGION) {
-    console.error('Required environment variables for Amplify are not set');
+    console.error('[AUTH] Required environment variables for Amplify are not set');
     return;
   }
 
   // Log configuration for debugging
-  console.log('Configuring Amplify with:', {
+  console.log('[AUTH] Configuring Amplify with:', {
     region: process.env.NEXT_PUBLIC_AWS_REGION,
     userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
     userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID
@@ -36,9 +36,9 @@ const configureAmplify = () => {
         }
       }
     }, { ssr: true });
-    console.log('Amplify configured successfully');
+    console.log('[AUTH] Amplify configured successfully');
   } catch (error) {
-    console.error('Error configuring Amplify:', error);
+    console.error('[AUTH] Error configuring Amplify:', error);
   }
 };
 
