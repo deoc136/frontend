@@ -1,27 +1,46 @@
 'use client';
 
 import { Authenticator } from '@aws-amplify/ui-react';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import { useRouter } from 'next/navigation';
 import { View, Image, Text, Heading, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-if (!process.env.NEXT_PUBLIC_USER_POOL_ID || 
-    !process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID || 
-    !process.env.NEXT_PUBLIC_AWS_REGION) {
-  throw new Error('Required environment variables are not set');
-}
-
-const authConfig = {
-  Cognito: {
-    userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
-    userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID,
-    region: process.env.NEXT_PUBLIC_AWS_REGION
+// Configure Amplify with environment variables only
+// This configuration ONLY uses your existing Cognito User Pool
+// and doesn't create a new one via CloudFormation
+const configureAmplify = () => {
+  if (typeof window === "undefined") return; // Skip on server-side
+  
+  if (!process.env.NEXT_PUBLIC_USER_POOL_ID || 
+      !process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID || 
+      !process.env.NEXT_PUBLIC_AWS_REGION) {
+    console.error('Required environment variables for Amplify are not set');
+    return;
   }
-} as const;
 
-Amplify.configure({ Auth: authConfig }, { ssr: true });
+  // Log configuration for debugging
+  console.log('Configuring Amplify with:', {
+    region: process.env.NEXT_PUBLIC_AWS_REGION,
+    userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
+    userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID
+  });
+
+  // Configure Amplify with just the auth config
+  try {
+    Amplify.configure({
+      Auth: {
+        Cognito: {
+          userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID ?? '',
+          userPoolClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID ?? '',
+        }
+      }
+    }, { ssr: true });
+    console.log('Amplify configured successfully');
+  } catch (error) {
+    console.error('Error configuring Amplify:', error);
+  }
+};
 
 // Custom components for Authenticator
 const components = {
@@ -114,7 +133,10 @@ const formFields = {
 };
 
 export default function AuthProvider({ children }: PropsWithChildren) {
-  const router = useRouter();
+  // Configure Amplify when component mounts
+  useEffect(() => {
+    configureAmplify();
+  }, []);
 
   return (
     <Authenticator
