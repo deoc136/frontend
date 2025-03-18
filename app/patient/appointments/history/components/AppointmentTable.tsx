@@ -49,7 +49,7 @@ export default function AppointmentsHistoryTable({
             );
             setColumn(desc.column);
          }}
-         sortDescriptor={{ column, direction }}
+         sortDescriptor={{ column: column ?? 'date' as Key, direction }}
       >
          <TableHeader>
             <Column allowsSorting key="date">

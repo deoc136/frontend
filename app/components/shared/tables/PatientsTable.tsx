@@ -42,7 +42,7 @@ export default function PatientsTable({
                );
                setColumn(desc.column);
             }}
-            sortDescriptor={{ column, direction }}
+            sortDescriptor={{ column: column ?? 'names' as Key, direction }}
          >
             <TableHeader>
                <Column allowsSorting key="names">
