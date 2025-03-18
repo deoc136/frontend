@@ -90,5 +90,34 @@ export async function getAllUsersByRole(role: Role) {
 }
 
 export async function getUserByCognitoId(cognitoId: string) {
-   return axios.get<User>(`/user/getByCognitoId/${cognitoId}`);
+   console.log(`[USER SERVICE] Requesting user with Cognito ID: ${cognitoId}`);
+   const requestUrl = `/user/getByCognitoId/${cognitoId}`;
+   console.log(`[USER SERVICE] Full request URL: ${requestUrl}`);
+   console.log(`[USER SERVICE] Axios baseURL: ${axios.defaults.baseURL || 'Not set'}`);
+   
+   try {
+      console.log(`[USER SERVICE] Sending request to: ${axios.defaults.baseURL || ''}${requestUrl}`);
+      const response = await axios.get<User>(requestUrl);
+      console.log(`[USER SERVICE] Request successful, status: ${response.status}`);
+      return response;
+   } catch (error: any) {
+      console.error(`[USER SERVICE] Error fetching user with Cognito ID: ${cognitoId}`);
+      console.error(`[USER SERVICE] Error details:`, {
+         status: error.response?.status,
+         statusText: error.response?.statusText,
+         data: error.response?.data,
+         url: error.config?.url,
+         method: error.config?.method,
+         headers: error.config?.headers
+      });
+      
+      // Log the full Axios config for debugging
+      console.log(`[USER SERVICE] Full request config:`, {
+         baseURL: axios.defaults.baseURL,
+         timeout: axios.defaults.timeout,
+         withCredentials: axios.defaults.withCredentials
+      });
+      
+      throw error;
+   }
 }

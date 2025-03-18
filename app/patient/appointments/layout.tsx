@@ -2,26 +2,27 @@
 
 import { PropsWithChildren } from 'react';
 import LayoutChildrenWrapper from './components/LayoutChildrenWrapper';
+import AuthProvider from '@/components/providers/AuthProvider';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 export default function Layout({
    children,
 }: PropsWithChildren) {
-   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-   const router = useRouter();
+   return (
+     <AuthProvider>
+       <AppointmentsContent>{children}</AppointmentsContent>
+     </AuthProvider>
+   );
+}
 
-   useEffect(() => {
-     if (authStatus === 'unauthenticated') {
-       router.push('/auth/login');
-       return;
-     }
-   }, [authStatus, router]);
+function AppointmentsContent({ children }: PropsWithChildren) {
+  // Get authentication status
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
-   if (authStatus !== 'authenticated') {
-     return null;
-   }
+  // Only render the appointments content if authenticated
+  if (authStatus !== 'authenticated') {
+    return null;
+  }
 
-   return <LayoutChildrenWrapper>{children}</LayoutChildrenWrapper>;
+  return <>{children}</>;
 }
