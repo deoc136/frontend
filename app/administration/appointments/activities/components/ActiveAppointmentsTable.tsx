@@ -46,7 +46,7 @@ export default function ActiveAppointmentsTable({
                );
                setColumn(desc.column);
             }}
-            sortDescriptor={{ column, direction }}
+            sortDescriptor={{ column: column ?? 'date', direction }}
          >
             <TableHeader>
                <Column allowsSorting key="date">
