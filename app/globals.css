@@ -7,6 +7,37 @@
    --fc-today-bg-color: #fbebe6 !important;
 }
 
+/* Dark mode variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+    --text-color: #ffffff;
+    --background-color: #121212;
+    --foundation-color: #1e1e1e;
+    --card-color: #2a2a2a;
+  }
+}
+
+/* Light mode variables */
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 255, 255, 255;
+    --background-end-rgb: 255, 255, 255;
+    --text-color: #000000;
+    --background-color: #ffffff;
+    --foundation-color: #F8F8F8;
+    --card-color: #ffffff;
+  }
+}
+
+.dark-mode-text {
+  @apply dark:text-white;
+}
+
+/* FullCalendar customizations */
 .fc-timegrid-slot-minor,
 .fc-timegrid-slot-label,
 .fc-event {
@@ -94,25 +125,31 @@
    z-index: 10 !important;
 }
 
-
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+body {
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} 
+@media (prefers-color-scheme: dark) {
+  /* Header styles for dark mode */
+  .bg-foundation {
+    background-color: var(--foundation-color) !important;
+  }
+
+  .text-on-background-text {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  /* Navigation elements */
+  select, button, a {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* Card backgrounds */
+  .bg-white, .bg-white-background {
+    background-color: var(--card-color) !important;
+  }
+}
 
 /* width */
 ::-webkit-scrollbar {
@@ -121,7 +158,7 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-   background: white;
+   background: var(--background-color);
 }
 
 /* Handle */
@@ -129,7 +166,7 @@ body {
    border-radius: 9999px;
    background: #4fd1c5;
    margin: 0.25rem;
-   border: 0.25rem solid white;
+   border: 0.25rem solid var(--background-color);
 }
 
 /* Handle on hover */

@@ -171,7 +171,7 @@ export default function PatientHeader() {
                   ))}
                </Select>
                <Select
-                  className={`hidden rounded-none bg-transparent !py-3 font-normal !text-on-background-text !shadow-none lg:flex ${
+                  className={`hidden rounded-none bg-transparent !py-3 font-normal !text-on-background-text dark:!text-white !shadow-none lg:flex ${
                      typeCondition === Route.appointments &&
                      'border-b-4 border-secondary font-semibold !text-secondary'
                   }`}
@@ -187,7 +187,7 @@ export default function PatientHeader() {
                      key={clinicRoutes().patient_appointments_actives}
                      textValue={dic.texts.appointments.active_appointments}
                   >
-                     <div className="w-max px-8 py-3">
+                     <div className="w-max px-8 py-3 dark:text-white">
                         {dic.texts.appointments.active_appointments}
                      </div>
                   </Item>
@@ -195,13 +195,13 @@ export default function PatientHeader() {
                      key={clinicRoutes().patient_appointments_history}
                      textValue={dic.texts.appointments.appointments_history}
                   >
-                     <div className="w-max px-8 py-3">
+                     <div className="w-max px-8 py-3 dark:text-white">
                         {dic.texts.appointments.appointments_history}
                      </div>
                   </Item>
                </Select>
                <Button
-                  className={`mr-24 hidden !h-full w-max rounded-none bg-transparent !py-3 font-normal !text-on-background-text !shadow-none lg:block`}
+                  className={`mr-24 hidden !h-full w-max rounded-none bg-transparent !py-3 font-normal !text-on-background-text dark:!text-white !shadow-none lg:block`}
                   href={clinicRoutes().patient_services}
                >
                   {dic.texts.services.services}

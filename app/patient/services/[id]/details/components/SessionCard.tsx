@@ -40,7 +40,7 @@ export default function SessionCard({
             <p className="text-3xl font-bold">
                {//formatPrice(price, clinicCurrency)
                }
-               $90.000 COP
+               $100.000 COP
             </p>
             <Button
                className="self-center lg:max-w-sm"

@@ -70,7 +70,7 @@ export default function ServiceCard({ service }: IServiceCard) {
                )}
             </p>
             <Button
-               className="!py-2 text-sm lg:text-base"
+               className="!py-2 text-sm lg:text-base dark:bg-gray-800 dark:text-white"
                href={clinicRoutes().patient_services_id(service.id).details}
                variant={Variant.secondary}
             >

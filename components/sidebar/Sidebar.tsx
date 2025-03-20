@@ -45,7 +45,7 @@ export default function Sidebar({
 
    return (
       <div
-         className={`sticky top-0 grid h-screen w-[18rem] flex-none grid-rows-[auto_1fr_auto] bg-foundation px-4 pb-10 pt-16 text-sm text-on-background-text sm:text-base ${
+         className={`sticky top-0 grid h-screen w-[18rem] flex-none grid-rows-[auto_1fr_auto] bg-foundation dark:bg-gray-900 px-4 pb-10 pt-16 text-sm text-on-background-text dark:text-white sm:text-base ${
             noImage && 'grid-rows-[1fr_auto]'
          } ${className}`}
       >
@@ -58,7 +58,7 @@ export default function Sidebar({
                   alt="logo"
                   quality={90} 
                   fill
-                  className="object-contain"
+                  className="object-contain dark:filter dark:brightness-150"
                />
             </div>
          )}
@@ -85,7 +85,7 @@ export default function Sidebar({
                      />
                      <hr
                         role="none"
-                        className="mx-2 border-on-background-text"
+                        className="mx-2 border-on-background-text dark:border-gray-600"
                      />
                   </>
                ) : (
@@ -130,12 +130,12 @@ function ListBoxSection({ icons, section, state, index }: IListBoxSection) {
             {section.rendered && (
                <SidebarButton
                   role="option"
-                  className={`hover:bg-dark-gray justify-between gap-x-4 rounded-lg`}
+                  className={`hover:bg-dark-gray dark:hover:bg-gray-700 justify-between gap-x-4 rounded-lg`}
                   onPress={() => setIsClose(prev => !prev)}
                >
                   <div
                      {...headingProps}
-                     className="flex items-center gap-4 font-semibold"
+                     className="flex items-center gap-4 font-semibold dark:text-white"
                   >
                      <span>{section.rendered}</span>
                   </div>
@@ -207,17 +207,17 @@ function Option({ item, state, RoundedIcon }: IOption) {
          aria-describedby={item.props.textValue ?? 'sidebar item'}
          className={`
          mx-2 rounded-lg
-         ${!isSelected && 'hover:bg-primary-100'}
+         ${!isSelected && 'hover:bg-primary-100 dark:hover:bg-gray-700'}
          ${isDisabled ? 'bg-disabled' : 'cursor-pointer '}
-         ${match && 'bg-white text-black shadow-lg'}
+         ${match && 'bg-white dark:bg-gray-800 text-black dark:text-white shadow-lg'}
          `}
       >
          <SidebarButton href={item.props.textValue && item.textValue}>
-            <span className="flex w-full items-center justify-start gap-4 text-start font-semibold">
+            <span className="flex w-full items-center justify-start gap-4 text-start font-semibold dark:text-gray-100">
                {RoundedIcon && (
                   <RoundedIcon
                      className={`box-content py-[.4rem] ${
-                        match && 'rounded-full bg-primary px-[.4rem] text-white'
+                        match && 'rounded-full bg-primary dark:bg-primary-700 px-[.4rem] text-white'
                      }`}
                      height={16}
                   />
