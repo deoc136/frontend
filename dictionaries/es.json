@@ -14,8 +14,8 @@
       "select_city": "Selecciona una ciudad",
       "enter_address": "Ingresar dirección",
       "select_headquarter": "Selecciona una sede",
-      "select_therapist": "Selecciona un terapeuta",
-      "any_therapist": "Cualquier terapeuta",
+      "select_therapist": "Selecciona un Médico",
+      "any_therapist": "Cualquier Médico",
       "select_schedule": "Selecciona un horario",
       "enter_code": "Ingresar código"
    },
@@ -308,7 +308,7 @@
                "labels": {
                   "quality": "Calidad del servicio recibido",
                   "punctuality": "Puntualidad en la atención",
-                  "kindness": "Amabilidad del Terapeuta",
+                  "kindness": "Amabilidad del Médico",
                   "knowledge": "Nivel de conocimiento"
                },
                "ratings": {
@@ -332,7 +332,7 @@
          "profile": {
             "my_profile": {
                "sub_title": "Descarga los formularios para poder acceder a nuestros servicios.",
-               "description": "No olvides que antes de tu sesión con tu terapeuta asignado deberás tener completo y firmado los formularios correspondientes para que puedas ser atendido."
+               "description": "No olvides que antes de tu sesión con tu Médico asignado deberás tener completo y firmado los formularios correspondientes para que puedas ser atendido."
             },
             "forms": {
                "uploaded_successfully": {

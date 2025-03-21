@@ -42,7 +42,7 @@ export default function AppointmentsList({
       dispatch(
          changeTitle({
             goBackRoute: null,
-            value: dic.texts.appointments.my_appointments,
+            value: dic.texts.appointments.active_appointments,
          }),
       );
       // eslint-disable-next-line react-hooks/exhaustive-deps

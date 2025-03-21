@@ -1,28 +1,36 @@
 'use client';
 
-import { PropsWithChildren } from 'react';
-import LayoutChildrenWrapper from './components/LayoutChildrenWrapper';
+import { PropsWithChildren, useEffect } from 'react';
 import AuthProvider from '@/components/providers/AuthProvider';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useAppDispatch } from '@/lib/hooks/redux-hooks';
+import { changeTitle } from '@/lib/features/title/title_slice';
 
-export default function Layout({
-   children,
-}: PropsWithChildren) {
-   return (
-     <AuthProvider>
-       <AppointmentsContent>{children}</AppointmentsContent>
-     </AuthProvider>
-   );
-}
-
-function AppointmentsContent({ children }: PropsWithChildren) {
-  // Get authentication status
+function AppointmentsLayoutContent({ children }: PropsWithChildren) {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+  const dispatch = useAppDispatch();
 
-  // Only render the appointments content if authenticated
+  useEffect(() => {
+    dispatch(
+       changeTitle({
+          goBackRoute: null,
+          value: 'Mis citas Agendadas',
+       }),
+    );
+ }, [dispatch]);
+
   if (authStatus !== 'authenticated') {
+    console.log('[APPOINTMENTS-LAYOUT] Authentication required');
     return null;
   }
 
   return <>{children}</>;
+}
+
+export default function AppointmentsLayout({ children }: PropsWithChildren) {
+  return (
+    <AuthProvider>
+      <AppointmentsLayoutContent>{children}</AppointmentsLayoutContent>
+    </AuthProvider>
+  );
 }

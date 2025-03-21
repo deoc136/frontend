@@ -240,3 +240,29 @@ input[type='checkbox']::before {
 input[type='checkbox']:checked::before {
    transform: scale(1);
 }
+
+/* Amplify UI Dark Mode Overrides */
+[data-amplify-authenticator] {
+  --amplify-components-authenticator-router-background-color: var(--background-color);
+  --amplify-components-authenticator-form-padding: 2rem;
+  --amplify-components-button-primary-background-color: #db3a00;
+  --amplify-components-button-primary-hover-background-color: #c43400;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-amplify-authenticator] {
+    --amplify-components-tabs-item-color: white;
+    --amplify-components-tabs-item-active-color: white;
+    --amplify-components-tabs-item-hover-color: #db3a00;
+    --amplify-components-tabs-item-border-color: #4a4a4a;
+    --amplify-components-fieldcontrol-color: white;
+    --amplify-components-field-label-color: #e0e0e0;
+    --amplify-components-text-color: #e0e0e0;
+    --amplify-components-button-color: white;
+    --amplify-components-button-hover-background-color: #2d2d2d;
+  }
+
+  [data-amplify-authenticator] h3[data-amplify-heading] {
+    color: white !important;
+  }
+}

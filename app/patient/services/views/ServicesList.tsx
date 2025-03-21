@@ -79,7 +79,7 @@ export default function ServicesList({ services }: IServicesList) {
 
          {/* WhatsApp Icon */}
          <a
-            href="https://api.whatsapp.com/send?phone=573105345062" // Replace with your WhatsApp link
+            href="https://wa.me/573105345062?text=Hola,%20vi%20tus%20servicios%20en%20la%20p%C3%A1gina%20web%20y%20me%20interesa%20m%C3%A1s%20informaci%C3%B3n.&utm_source=website&utm_medium=button&utm_campaign=wa-button" // Replace with your WhatsApp link
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-40 right-1 md:right-5 z-50"

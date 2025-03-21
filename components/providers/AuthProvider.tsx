@@ -5,6 +5,7 @@ import { PropsWithChildren, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
 import { View, Image, Text, Heading, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import logo from '@/public/logodcc.svg';
 
 // Configure Amplify with environment variables only
 // This configuration ONLY uses your existing Cognito User Pool
@@ -48,11 +49,17 @@ const components = {
     const { tokens } = useTheme();
     return (
       <View textAlign="center" padding={tokens.space.large}>
-        <Image
-          alt="App logo"
-          src="/logo.png"
-          className="mx-auto h-16 w-auto"
-        />
+        <div className="relative mx-auto w-48 h-24">
+          <Image 
+            alt="DCC logo" 
+            src="/logodcc.svg"
+            style={{
+              objectFit: 'contain',
+              width: '100%',
+              height: '100%'
+            }}
+          />
+        </div>
       </View>
     );
   },
@@ -61,7 +68,7 @@ const components = {
     const { tokens } = useTheme();
     return (
       <View textAlign="center" padding={tokens.space.large}>
-        <Text color={tokens.colors.neutral[80]}>
+        <Text className="dark:text-gray-300" color={tokens.colors.neutral[80]}>
           &copy; 2024 DCC. All Rights Reserved
         </Text>
       </View>
@@ -73,8 +80,12 @@ const components = {
       const { tokens } = useTheme();
       return (
         <Heading
+          className="dark:text-white text-black"
           padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
           level={3}
+          style={{
+            color: 'inherit'
+          }}
         >
           Iniciar Sesión
         </Heading>
@@ -83,7 +94,7 @@ const components = {
     Footer() {
       return (
         <View textAlign="center">
-          <Text>¿Necesitas ayuda? Contáctanos</Text>
+          <Text className="dark:text-gray-300">¿Necesitas ayuda? Contáctanos</Text>
         </View>
       );
     }
@@ -97,11 +108,13 @@ const formFields = {
       placeholder: 'Ingresa tu correo electrónico',
       label: 'Correo Electrónico:',
       isRequired: true,
+      className: 'dark:text-white'
     },
     password: {
       placeholder: 'Ingresa tu contraseña',
       label: 'Contraseña:',
       isRequired: true,
+      className: 'dark:text-white'
     }
   },
   signUp: {
@@ -109,25 +122,29 @@ const formFields = {
       placeholder: 'Ingresa tu correo electrónico',
       label: 'Correo Electrónico:',
       isRequired: true,
-      order: 1
+      order: 1,
+      className: 'dark:text-white'
     },
     phone_number: {
       placeholder: 'Ingresa tu número de teléfono',
       label: 'Teléfono:',
       isRequired: true,
-      order: 2
+      order: 2,
+      className: 'dark:text-white'
     },
     password: {
       placeholder: 'Crea una contraseña',
       label: 'Contraseña:',
       isRequired: true,
-      order: 3
+      order: 3,
+      className: 'dark:text-white'
     },
     confirm_password: {
       placeholder: 'Confirma tu contraseña',
       label: 'Confirmar Contraseña:',
       isRequired: true,
-      order: 4
+      order: 4,
+      className: 'dark:text-white'
     }
   }
 };
@@ -144,6 +161,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
       formFields={formFields}
       variation="modal"
       loginMechanisms={['email', 'phone_number']}
+      className="dark:bg-gray-900"
     >
       {children}
     </Authenticator>

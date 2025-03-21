@@ -13,6 +13,8 @@ import AppointmentsList from './views/AppointmentsList';
 import { Appointment } from '@/types/appointment';
 import { Service } from '@/types/service';
 import { User } from '@/types/user';
+import { changeTitle } from '@/lib/features/title/title_slice';
+import { useAppDispatch } from '@/lib/hooks/redux-hooks';
 
 export default function Page() {
    const router = useRouter();
@@ -21,7 +23,17 @@ export default function Page() {
    const [services, setServices] = useState<Service[]>([]);
    const [therapists, setTherapists] = useState<User[]>([]);
    const [loading, setLoading] = useState(true);
+   const dispatch = useAppDispatch();
 
+   useEffect(() => {
+    dispatch(
+       changeTitle({
+          goBackRoute: null,
+          value: 'Mis citas Agendadas',
+       }),
+    );
+ }, [dispatch]);
+   
    useEffect(() => {
      async function loadData() {
        try {
@@ -32,20 +44,13 @@ export default function Page() {
          }
 
          const cognitoId = user.username;
-         console.log('[APPOINTMENTS] User authenticated with Cognito ID:', cognitoId);
-         console.log('[APPOINTMENTS] User object:', JSON.stringify(user, null, 2));
-         
-         console.log('[APPOINTMENTS] Fetching user by Cognito ID:', cognitoId);
+
          try {
            // Use a direct URL for debugging
-           const directUrl = `http://localhost:5000/user/getByCognitoId/${cognitoId}`;
-           console.log('[APPOINTMENTS] Making direct API call to:', directUrl);
-           
+           const directUrl = `http://localhost:5000/user/getByCognitoId/${cognitoId}`;           
            // Try a fetch call to isolate the issue from axios
            const fetchResponse = await fetch(directUrl);
-           console.log('[APPOINTMENTS] Fetch response status:', fetchResponse.status);
            if (!fetchResponse.ok) {
-             console.error('[APPOINTMENTS] Fetch failed with status:', fetchResponse.status);
              const errorText = await fetchResponse.text();
              console.error('[APPOINTMENTS] Error response:', errorText);
            } else {

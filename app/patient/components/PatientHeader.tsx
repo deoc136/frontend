@@ -247,7 +247,7 @@ export default function PatientHeader() {
          <div
             id="patient-navbar"
             className={`relative w-full bg-cover bg-right bg-no-repeat px-5 py-1 transition-all lg:px-12 lg:py-5 ${
-               hasBg ? 'bg-primary bg-waves' : 'bg-primary-200'
+               hasBg ? 'bg-primary bg-waves' : 'bg-primary-200  bg-waves'
             }`}
          >
             <div className="flex flex-wrap items-center gap-5">

@@ -255,7 +255,7 @@ function Buttons({
                   variant={Variant.outlined}
                   onPress={() =>
                      allowEdition
-                        ? window.open('https://api.whatsapp.com/send?phone=573105345062', '_blank')
+                        ? window.open('https://wa.me/573105345062?text=Hola,%20vi%20tus%20servicios%20en%20la%20p%C3%A1gina%20web%20y%20me%20interesa%20m%C3%A1s%20informaci%C3%B3n.&utm_source=website&utm_medium=button&utm_campaign=service-inquiries', '_blank')
                         : setDisabledOpen(true)
                   }
                >

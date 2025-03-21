@@ -256,6 +256,7 @@ export function patient_routes() {
 
 export function clinicRoutes() {
    return {
+      services: '/services',
       clinic_resetPassword: `/auth/reset-password`,
       clinic_activateAccount: `/auth/activate-account`,
 
