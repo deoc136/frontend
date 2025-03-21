@@ -251,16 +251,7 @@ export default function PatientHeader() {
             }`}
          >
             <div className="flex flex-wrap items-center gap-5">
-               <p className="w-full text-xs lg:text-sm">
-                  {!hasBg && (
-                     <>
-                        {title?.length ? value.replace(title, '') : true}{' '}
-                        <span className="font-semibold text-secondary">
-                           {title}
-                        </span>
-                     </>
-                  )}
-               </p>
+
                {typeof goBackRoute === 'string' && !hasBg && (
                   <Button
                      className="flex aspect-square !w-6 items-center justify-center !rounded-full bg-white !p-0 !text-black lg:!w-8"

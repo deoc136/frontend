@@ -15,6 +15,8 @@ interface ILayout extends PropsWithChildren<unknown> {
 export const revalidate = 0;
 
 export default async function Layout({ children, params }: ILayout) {
+
+
    
       return (
          <main className="relative">

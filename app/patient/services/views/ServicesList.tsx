@@ -2,13 +2,15 @@
 
 import { Service } from '@/types/service';
 import ServiceCard from '@/app/components/ServiceCard';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Dispatch } from 'react';
 import { secondsToTimeExtended } from '@/lib/utils';
 import TextField from '@/app/components/TextField';
 import SessionCard from '../[id]/details/components/SessionCard';
 import { clinicRoutes } from '@/lib/routes';
 import { createPortal } from 'react-dom';
 import useDictionary from '@/lib/hooks/useDictionary';
+import { changeTitle } from '@/lib/features/title/title_slice';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux-hooks';
 
 interface IServicesList {
    services: Service[];
@@ -18,8 +20,9 @@ export default function ServicesList({ services }: IServicesList) {
    const dic = useDictionary();
    const [search, setSearch] = useState('');
    const [page, setPage] = useState(0);
-   const limit = 15;
+   const limit = 30;
    const [patientNavbar, setPatientNavbar] = useState<Element | null>(null);
+   const dispatch = useAppDispatch();
 
    function filter($services: Service[]) {
       return $services.filter(el =>
@@ -41,14 +44,22 @@ export default function ServicesList({ services }: IServicesList) {
       setPatientNavbar(document.querySelector('#patient-navbar') ?? null);
    }, []);
 
+
+   useEffect(() => {
+      dispatch(
+         changeTitle({
+            goBackRoute: null,
+            value: dic.pages.patient.services.title,
+         }),
+      );
+   }, [dispatch, dic.pages.patient.services.title]);
+
    return (
       <>
          {patientNavbar &&
             createPortal(
                <>
-                  <h1 className="mb-3 text-xl font-semibold lg:mb-5 lg:text-2xl text-white">
-                     {dic.pages.patient.services.title}
-                  </h1>
+
                   <TextField
                      aria-label="search"
                      value={search}
