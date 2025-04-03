@@ -111,14 +111,11 @@ export default function DataPolicyPage() {
           <h3 className="text-lg font-semibold">3. DEBERES DE EL Dr. CARLOS ENRIQUE CARVAJAL NIETO</h3>
           <div className="space-y-4">
             <p className="text-justify">
-              De acuerdo con las definiciones legales y propias de esta política empresarial de tratamiento de datos, el Dr. CARLOS
-              ENRIQUE CARVAJAL NIETO, quien actuará como RESPONSABLE DEL TRATAMIENTO DE DATOS PERSONALES y cumplirá
+              De acuerdo con las definiciones legales y propias de esta política empresarial de tratamiento de datos, el Dr. CARLOS ENRIQUE CARVAJAL NIETO, quien actuará como RESPONSABLE DEL TRATAMIENTO DE DATOS PERSONALES y cumplirá
               con los siguientes deberes:
             </p>
             <p className="text-justify">
-              Garantizar al titular, de manera permanente, el pleno y efectivo ejercicio del derecho de Hábeas Data; entendiendo por
-              este el derecho a conocer, actualizar rectificar y suprimir, la información que sobre él reposa en las bases de datos personales que
-              son administradas por el encargado de tratamiento.
+              Garantizar al titular, de manera permanente, el pleno y efectivo ejercicio del derecho de Hábeas Data; entendiendo por este el derecho a conocer, actualizar rectificar y suprimir, la información que sobre él reposa en las bases de datos personales que son administradas por el encargado de tratamiento.
             </p>
             <ol className="pl-12 space-y-2">
               <li className="flex gap-4 text-justify">
@@ -143,11 +140,11 @@ export default function DataPolicyPage() {
               </li>
               <li className="flex gap-4 text-justify">
                 <span className="font-semibold min-w-[1.5rem]">vi.</span>
-                <span>Registrar en la base de datos las leyendas "reclamo en trámite" en la forma en que se regula en la ley.</span>
+                <span>Registrar en la base de datos las leyendas &ldquo;reclamo en trámite&rdquo; en la forma en que se regula en la ley.</span>
               </li>
               <li className="flex gap-4 text-justify">
                 <span className="font-semibold min-w-[1.5rem]">vii.</span>
-                <span>Insertar en la base de datos la leyenda "información en discusión judicial" una vez notificado por parte de la autoridad competente sobre procesos judiciales relacionados con la calidad del dato personal.</span>
+                <span>Insertar en la base de datos la leyenda &ldquo;información en discusión judicial&rdquo; una vez notificado por parte de la autoridad competente sobre procesos judiciales relacionados con la calidad del dato personal.</span>
               </li>
               <li className="flex gap-4 text-justify">
                 <span className="font-semibold min-w-[1.5rem]">viii.</span>
@@ -209,8 +206,7 @@ export default function DataPolicyPage() {
             La presente política de tratamiento de la información personal tendrá vigencia a partir del 01 de junio de 2024 y hasta que se mantengan las finalidades que justifican su tratamiento. 
             </p>
             <p className="text-justify">
-            Los cambios o modificaciones sustanciales que se incorporen en la presente política serán comunicados al titular con mínimo diez(10) días de antelación a su implementación. La notificación de los cambios se hará a través de los medios de comunicación
-idóneos.
+            Los cambios o modificaciones sustanciales que se incorporen en la presente política serán comunicados al titular con mínimo diez(10) días de antelación a su implementación. La notificación de los cambios se hará a través de los medios de comunicación idóneos.
             </p>
           </div>
         </section>
