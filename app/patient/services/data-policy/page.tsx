@@ -5,7 +5,6 @@ import { useAppDispatch } from '@/lib/hooks/redux-hooks';
 import { changeTitle } from '@/lib/features/title/title_slice';
 import useDictionary from '@/lib/hooks/useDictionary';
 
-
 export default function DataPolicyPage() {
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -48,26 +47,28 @@ export default function DataPolicyPage() {
         </div>
       )}
 
-      {/* PDF Viewer Container */}
-      <div className="relative w-full h-[calc(100vh-200px)] flex flex-col">
-        <div className="absolute top-4 right-4 z-10">
+      {/* Mobile-friendly PDF Container */}
+      <div className="fixed inset-0 pt-[64px] pb-0 px-0 flex flex-col md:static md:pt-0 md:h-[calc(100vh-200px)]">
+        {/* Download button - floating on mobile, fixed on desktop */}
+        <div className="fixed top-[72px] right-2 z-10 md:absolute md:top-4 md:right-4">
           <button
             onClick={() => setIsDownloadModalOpen(true)}
-            className="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-secondary-700 transition-colors flex items-center gap-2"
+            className="bg-secondary text-white px-3 py-2 md:px-4 md:py-2 rounded-lg hover:bg-secondary-700 transition-colors flex items-center gap-2 shadow-lg"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            Descargar PDF
+            <span className="hidden md:inline">Descargar PDF</span>
           </button>
         </div>
         
+        {/* PDF Viewer - full screen on mobile */}
         <iframe
           src="https://appdccimages.s3.amazonaws.com/POLÍTICA DE TRATAMIENTO DE DATOS PERSONALES - DR. CARLOS CARVAJAL.pdf"
-          className="w-full h-full rounded-lg shadow-lg"
+          className="w-full h-full rounded-none md:rounded-lg shadow-none md:shadow-lg"
           style={{
-            minHeight: '500px',
-            backgroundColor: '#f8f8f8'
+            minHeight: '100%',
+            border: 'none'
           }}
         />
       </div>
