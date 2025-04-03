@@ -5,6 +5,46 @@ import { useAppDispatch } from '@/lib/hooks/redux-hooks';
 import { changeTitle } from '@/lib/features/title/title_slice';
 import useDictionary from '@/lib/hooks/useDictionary';
 
+// Definiciones como constante fuera del componente
+const definitions = [
+  {
+    term: 'Base de datos',
+    definition: 'Conjunto organizado de datos personales que sea objeto de tratamiento.'
+  },
+  {
+    term: 'Dato personal',
+    definition: 'Cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables.'
+  },
+  {
+    term: 'Dato sensible',
+    definition: 'Información que afecta la intimidad de las personas o cuyo uso indebido puede generar discriminación.'
+  },
+  {
+    term: 'Encargado del Tratamiento',
+    definition: 'Persona natural o jurídica, pública o privada, que por sí misma o en asocio con otros, realice el tratamiento de datos personales por cuenta del responsable del tratamiento.'
+  },
+  {
+    term: 'Responsable del Tratamiento',
+    definition: 'Persona natural o jurídica, pública o privada, que decide sobre la base de datos y/o el tratamiento de los datos.'
+  },
+  {
+    term: 'Titular',
+    definition: 'Persona natural cuyos datos personales sean objeto de tratamiento.'
+  },
+  {
+    term: 'Tratamiento',
+    definition: 'Cualquier operación sobre datos personales, como recolección, almacenamiento, uso, circulación o supresión.'
+  },
+  {
+    term: 'Transferencia',
+    definition: 'Cuando el responsable y/o encargado envía los datos a un receptor que es responsable del tratamiento.'
+  },
+  {
+    term: 'Transmisión',
+    definition: 'Comunicación de datos a un encargado para su tratamiento por cuenta del responsable, dentro o fuera de Colombia.'
+  }
+];
+
 export default function DataPolicyPage() {
   const dispatch = useAppDispatch();
   const dic = useDictionary();
@@ -180,49 +220,3 @@ idóneos.
     </div>
   );
 }
-
-// Definiciones como array para mejor manejo
-const definitions = [
-  {
-    term: 'Base de datos',
-    definition: 'Conjunto organizado de datos personales que sea objeto de tratamiento.'
-  },
-  {
-    term: 'Dato personal',
-    definition: 'Cualquier información vinculada o que pueda asociarse a una o varias personas naturales determinadas o determinables.'
-  },
-  {
-    term: 'Dato sensible',
-    definition: 'Información que afecta la intimidad de las personas o cuyo uso indebido puede generar discriminación.'
-  },
-  {
-    term: 'Encargado del Tratamiento',
-    definition: 'Persona natural o jurídica, pública o privada, que por sí misma o en asocio con otros, realice el tratamiento de datos personales por cuenta del responsable del tratamiento.'
-  },
-  {
-    term: 'Responsable del Tratamiento',
-    definition: 'Persona natural o jurídica, pública o privada, que decide sobre la base de datos y/o el tratamiento de los datos.'
-  },
-  {
-    term: 'Titular',
-    definition: 'Persona natural cuyos datos personales sean objeto de tratamiento.'
-  },
-  {
-    term: 'Tratamiento',
-    definition: 'Cualquier operación sobre datos personales, como recolección, almacenamiento, uso, circulación o supresión.'
-  },
-  {
-    term: 'Transferencia',
-    definition: 'Cuando el responsable y/o encargado envía los datos a un receptor que es responsable del tratamiento.'
-  },
-  {
-    term: 'Transmisión',
-    definition: 'Comunicación de datos a un encargado para su tratamiento por cuenta del responsable, dentro o fuera de Colombia.'
-  }
-];
-
-<style jsx>{`
-  .list-roman {
-    list-style-type: lower-roman;
-  }
-`}</style>
