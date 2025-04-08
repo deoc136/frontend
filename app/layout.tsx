@@ -66,6 +66,7 @@ export default async function RootLayout({
                   </div>
                </main>
             </Provider>
+            <script>window.$zoho=window.$zoho || {};$zoho.salesiq=$zoho.salesiq||{ready:function(){}}</script><script id="zsiqscript" src="https://salesiq.zohopublic.com/widget?wc=siq988e04d3a2bed606447f16fad8f9a6150fc7cd9c3a35c6c44938134b2421fd15" defer></script>
          </body>
       </html>
    );
